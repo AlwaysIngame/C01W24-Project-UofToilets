@@ -10,7 +10,7 @@ const UserAccessCard = () => {
       </View> 
       <View style={styles.cardText}>
         <Text style={styles.washroom}>Washroom</Text>
-        <Text style={styles.acessCard}><b>Access Card</b></Text>
+        <Text style={styles.accessCard}><b>Access Card</b></Text>
         <Text style={styles.helpText}>Please help. I require urgent access to a washroom.</Text>
       </View>
     </View>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     fontSize: '4vw',
     color: '#ffffff'
   },
-  acessCard: {
+  accessCard: {
     marginLeft: '4vw',
     fontSize: "5vw",
     color: '#ffffff',
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     position: 'absolute',
     bottom: '0px',
-    marginBottom: '4vw',
+    marginBottom: '8vw',
   },
 });
 
