@@ -52,17 +52,17 @@ const styles = StyleSheet.create({
     marginTop: '3vw',
     marginLeft: '4vw',
     marginBottom: '0vw',
-    fontSize: "2vw",
+    fontSize: '4vw',
     color: '#ffffff'
   },
   acessCard: {
     marginLeft: '4vw',
-    fontSize: "3vw",
+    fontSize: "5vw",
     color: '#ffffff',
   }, 
   helpText: {
     marginLeft: '4vw',
-    fontSize: "1.5vw",
+    fontSize: "3vw",
     color: '#ffffff',
     position: 'absolute',
     bottom: '0px',
