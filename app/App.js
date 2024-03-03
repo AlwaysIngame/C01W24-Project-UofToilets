@@ -1,8 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import UserAccessCard from './components/UserAccessCard';
-
-
 
 export default function App() {
   return (
