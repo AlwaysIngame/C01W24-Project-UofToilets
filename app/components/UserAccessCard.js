@@ -9,9 +9,9 @@ const UserAccessCard = () => {
         <Image style={styles.iconImage} source={require('../assets/CCC-GOHERE-CS5-1.jpg')}/>
       </View> 
       <View style={styles.cardText}>
-        <Text>Washroom</Text>
-        <Text>Access Card</Text>
-        <Text>Please help. I require urgent access to a washroom</Text>
+        <Text style={styles.washroom}>Washroom</Text>
+        <Text style={styles.acessCard}><b>Access Card</b></Text>
+        <Text style={styles.helpText}>Please help. I require urgent access to a washroom.</Text>
       </View>
     </View>
   )
@@ -47,7 +47,27 @@ const styles = StyleSheet.create({
     height: '80%',
     maxWidth: '100%',
     margin: 'auto',
-  }
+  },
+  washroom: {
+    marginTop: '3vw',
+    marginLeft: '4vw',
+    marginBottom: '0vw',
+    fontSize: "2vw",
+    color: '#ffffff'
+  },
+  acessCard: {
+    marginLeft: '4vw',
+    fontSize: "3vw",
+    color: '#ffffff',
+  }, 
+  helpText: {
+    marginLeft: '4vw',
+    fontSize: "1.5vw",
+    color: '#ffffff',
+    position: 'absolute',
+    bottom: '0px',
+    marginBottom: '4vw',
+  },
 });
 
 //Export Component
