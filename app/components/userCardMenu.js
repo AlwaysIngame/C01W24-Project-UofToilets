@@ -25,6 +25,12 @@ const CardForm = () => {
           <Text style={styles.diseaseName}><b>Ulcerative Colitis</b></Text>
           <Text style={styles.diseaseDesc}>I live with colitis, a medical condition requiring urgent use of the washroom. Thank you for your understanding and cooperation.</Text>
         </View>
+        <View style={styles.infoButton}>
+          <Button title="CROHN'S AND COLITIS CANDADA" color="#efefef">=</Button>
+        </View>
+        <View style={styles.goHereButton}>
+          <Button title="GoHere Washroom Access Program" color="#000000"></Button>
+        </View>
       </BottomSheet>
     </>
   )
@@ -34,19 +40,24 @@ const styles = StyleSheet.create({
   diseaseName: {
     marginTop: 2*vh,
     marginLeft: 3*vw,
-    fontSize: 6*vw,
+    fontSize: 6*vw, 
   },
   diseaseDesc: {
     marginTop: 3*vh,
     marginLeft: 3*vw,
+    marginRight: 3*vw,
     fontSize: 3.75*vw,
   },
-  cccInfoButton: {
-    marginTop: 3*vh,
-  }, 
-  gohereButton: {
-    marginTop: 3*vh,
+  infoButton: {
+    margin: 'auto',
+    marginTop: 8*vh, //can adjust this to satisfy requirments.
+    width: '90%',
   },
+  goHereButton: {
+    margin: 'auto',
+    marginTop: 1*vh,
+    width: '90%',
+  }
 });
 
 export default CardForm;
