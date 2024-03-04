@@ -23,8 +23,6 @@ const CardForm = () => {
         <View>
           <Text style={styles.diseaseName}><b>Ulcerative Colitis</b></Text>
           <Text style={styles.diseaseDesc}>I live with colitis, a medical condition requiring urgent use of the washroom. Thank you for your understanding and cooperation.</Text>
-          <Button style={styles.cccInfoButton}>Hello</Button>
-          <Button style={styles.gohereButton}>Hello again</Button>
         </View>
       </BottomSheet>
     </>
@@ -49,6 +47,5 @@ const styles = StyleSheet.create({
     marginTop: '3vh',
   },
 });
-
 
 export default CardForm;
