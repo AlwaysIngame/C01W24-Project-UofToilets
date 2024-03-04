@@ -1,5 +1,9 @@
 //Import statements
 import { StyleSheet, Text, View, Image } from 'react-native';
+import { Dimensions } from 'react-native';
+
+const vh = Dimensions.get('window').height / 100;
+const vw = Dimensions.get('window').width / 100;
 
 //Component Functions and Constructor
 const UserAccessCard = () => {
@@ -23,15 +27,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     overflow: 'hidden',
-    width: '88vw',
-    maxWidth: '1035px',
-    maxHeight: '540px',
-    height: '46vw',
+    width: 88*vw,
+    maxWidth: 1035,
+    maxHeight: 540,
+    height: 46*vw,
     backgroundColor: '#ffffff',
-    borderRadius: '3vw',
-    shadowOffset: {width: '-0.5vw', height: '0.5vw'},
-    shadowRadius: '1vw',
-    shadowOpacity: '0.3',
+    borderRadius: 3*vw,
+    shadowOffset: {width: -0.5*vw, height: 0.5*vw},
+    shadowRadius: 1*vw,
+    shadowOpacity: 0.3,
   },
   cardIcon: {
     width: '30%',
@@ -49,24 +53,24 @@ const styles = StyleSheet.create({
     margin: 'auto',
   },
   washroom: {
-    marginTop: '3vw',
-    marginLeft: '4vw',
-    marginBottom: '0vw',
-    fontSize: '4vw',
+    marginTop: 3*vw,
+    marginLeft: 4*vw,
+    marginBottom: 0*vw,
+    fontSize: 4*vw,
     color: '#ffffff'
   },
   accessCard: {
-    marginLeft: '4vw',
-    fontSize: "5vw",
+    marginLeft: 4*vw,
+    fontSize: 5*vw,
     color: '#ffffff',
   }, 
   helpText: {
-    marginLeft: '4vw',
-    fontSize: "3vw",
+    marginLeft: 4*vw,
+    fontSize: 3*vw,
     color: '#ffffff',
     position: 'absolute',
-    bottom: '0px',
-    marginBottom: '8vw',
+    bottom: 0,
+    marginBottom: 8*vw,
   },
 });
 
