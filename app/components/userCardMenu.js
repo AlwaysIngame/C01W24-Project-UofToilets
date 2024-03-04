@@ -1,9 +1,10 @@
-import { BottomSheet, SheetContent } from 'react-spring-bottom-sheet'
+import { BottomSheet } from 'react-spring-bottom-sheet'
 import { Button, StyleSheet, Text, View } from 'react-native';
-
-// if setting up the CSS is tricky, you can add this to your page somewhere:
-// <link rel="stylesheet" href="https://unpkg.com/react-spring-bottom-sheet/dist/style.css" crossorigin="anonymous">
+import { Dimensions } from 'react-native'
 import 'react-spring-bottom-sheet/dist/style.css'
+
+const vh = Dimensions.get('window').height / 100;
+const vw = Dimensions.get('window').width / 100;
 
 const CardForm = () => {
   return (
@@ -31,20 +32,20 @@ const CardForm = () => {
 
 const styles = StyleSheet.create({
   diseaseName: {
-    marginTop: '2vh',
-    marginLeft: '3vw',
-    fontSize: '6vw',
+    marginTop: 2*vh,
+    marginLeft: 3*vw,
+    fontSize: 6*vw,
   },
   diseaseDesc: {
-    marginTop: '3vh',
-    marginLeft: '3vw',
-    fontSize: '3.75vw',
+    marginTop: 3*vh,
+    marginLeft: 3*vw,
+    fontSize: 3.75*vw,
   },
   cccInfoButton: {
-    marginTop: '3vh',
+    marginTop: 3*vh,
   }, 
   gohereButton: {
-    marginTop: '3vh',
+    marginTop: 3*vh,
   },
 });
 
