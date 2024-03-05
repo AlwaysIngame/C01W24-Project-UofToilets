@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     height: 42*vw,
     margin: 'auto',
     borderWidth: 3,
+    borderColor: '#efefef',
     borderRadius: 20,
     overflow: 'hidden'
   },
