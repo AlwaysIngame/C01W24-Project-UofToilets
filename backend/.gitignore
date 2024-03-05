@@ -17,3 +17,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# build files
+dist/
