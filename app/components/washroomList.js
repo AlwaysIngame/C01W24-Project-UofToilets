@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import { ScrollView, Text, StyleSheet, View, TextInput } from 'react-native';
 
 const fetchWashrooms = () => {
   // Simulate fetching data with coordinates
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
-        { name: 'Washroom 1', location: 'Location 1', coordinates: { latitude: 40.7128, longitude: -74.0060 } },
+        { name: 'Washroom 21', location: 'Location 1', coordinates: { latitude: 40.7128, longitude: -74.0060 } },
         { name: 'Washroom 2', location: 'Location 2', coordinates: { latitude: 34.0522, longitude: -118.2437 } },
         { name: 'Washroom 3', location: 'Location 3', coordinates: { latitude: 51.5074, longitude: -0.1278 } },
-        // Add more items as needed
+        // More washrooms when implemented
       ]);
     }, 2000);
   });
@@ -22,6 +22,7 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
 
 const ScrollableList = () => {
   const [items, setItems] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     // Simulate user's current location
@@ -37,19 +38,29 @@ const ScrollableList = () => {
     });
   }, []);
 
+  const filteredItems = items.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
+
   return (
-    <ScrollView style={styles.container}>
-      {items.map((item, index) => (
-        <View key={index} style={styles.item}>
-          <Text style={styles.name}>{item.name}</Text>
-          <View style={styles.locationContainer}>
-            <Text style={styles.locationLabel}>Location:</Text>
-            <Text style={styles.location}>{item.location}</Text>
+    <View style={styles.container}>
+      <TextInput
+        style={styles.search}
+        value={search}
+        onChangeText={setSearch}
+        placeholder="Search for a washroom..."
+      />
+      <ScrollView style={{ flex: 1 }}>
+        {filteredItems.map((item, index) => (
+          <View key={index} style={styles.item}>
+            <Text style={styles.name}>{item.name}</Text>
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationLabel}>Location:</Text>
+              <Text style={styles.location}>{item.location}</Text>
+            </View>
+            <Text style={styles.distance}>Distance: {Number(item.distance).toFixed(2)} km</Text>
           </View>
-          <Text style={styles.distance}>Distance: {(item.distance || 0).toFixed(2)} km</Text>
-        </View>
-      ))}
-    </ScrollView>
+        ))}
+      </ScrollView>
+    </View>
   );
 };
 
@@ -68,6 +79,13 @@ const styles = StyleSheet.create({
     borderColor: '#000', 
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  search: {
+    height: 40,
+    borderColor: '#000',
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingLeft: 10,
   },
   name: {
     textAlign: 'center',
