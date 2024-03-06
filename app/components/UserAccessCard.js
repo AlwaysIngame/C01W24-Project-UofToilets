@@ -14,7 +14,7 @@ const UserAccessCard = () => {
       </View> 
       <View style={styles.cardText}>
         <Text style={styles.washroom}>Washroom</Text>
-        <Text style={styles.accessCard}><b>Access Card</b></Text>
+        <Text style={styles.accessCard}>Access Card</Text>
         <Text style={styles.helpText}>Please help. I require urgent access to a washroom.</Text>
       </View>
     </View>
