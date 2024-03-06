@@ -49,16 +49,20 @@ const ScrollableList = () => {
         placeholder="Search for a washroom..."
       />
       <ScrollView style={{ flex: 1 }}>
-        {filteredItems.map((item, index) => (
-          <View key={index} style={styles.item}>
-            <Text style={styles.name}>{item.name}</Text>
-            <View style={styles.locationContainer}>
-              <Text style={styles.locationLabel}>Location:</Text>
-              <Text style={styles.location}>{item.location}</Text>
+        {filteredItems.length > 0 ? (
+          filteredItems.map((item, index) => (
+            <View key={index} style={styles.item}>
+              <Text style={styles.name}>{item.name}</Text>
+              <View style={styles.locationContainer}>
+                <Text style={styles.locationLabel}>Location:</Text>
+                <Text style={styles.location}>{item.location}</Text>
+              </View>
+              <Text style={styles.distance}>Distance: {Number(item.distance).toFixed(2)} km</Text>
             </View>
-            <Text style={styles.distance}>Distance: {Number(item.distance).toFixed(2)} km</Text>
-          </View>
-        ))}
+          ))
+        ) : (
+          <Text style={styles.noItems}>No washrooms found</Text>
+        )}
       </ScrollView>
     </View>
   );
@@ -86,6 +90,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 20,
     paddingLeft: 10,
+  },
+  noItems: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 18,
   },
   name: {
     textAlign: 'center',
