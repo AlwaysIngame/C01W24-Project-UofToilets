@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, StyleSheet, View, TextInput } from 'react-native';
 
 const fetchWashrooms = () => {
-  // Simulate fetching data with coordinates
+  // simulate fetching data with coordinates
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
@@ -16,7 +16,6 @@ const fetchWashrooms = () => {
 };
 
 const getDistance = (lat1, lon1, lat2, lon2) => {
-  // Calculate distance between two coordinates (simplified)
   return Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2));
 };
 
@@ -25,7 +24,7 @@ const ScrollableList = () => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    // Simulate user's current location
+    // dummy location
     const userLocation = { latitude: 37.7749, longitude: -122.4194 };
 
     fetchWashrooms().then((data) => {
