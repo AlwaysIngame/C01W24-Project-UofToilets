@@ -5,7 +5,13 @@ import { MongoClient, ObjectId, Db } from 'mongodb';
 
 const app = express();
 const PORT = 4000;
-const mongoURL = "mongodb://127.0.0.1:27017";
+let mongoURL: string;
+if (process.env.ENV === 'Docker') {
+    console.log("Docker");
+    mongoURL = 'mongodb://mongodb:27017';
+} else {
+    mongoURL = 'mongodb://127.0.0.1:27017';
+}
 const dbName = "gohere"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
