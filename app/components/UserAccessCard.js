@@ -8,16 +8,16 @@ const vw = Dimensions.get('window').width / 100;
 //Component Functions and Constructor
 const UserAccessCard = () => {
   return (
-    <View style={styles.cardBody}>
-      <View style={styles.cardIcon}>
-        <Image style={styles.iconImage} source={require('../assets/CCC-GOHERE-CS5-1.jpg')}/>
-      </View> 
-      <View style={styles.cardText}>
-        <Text style={styles.washroom}>Washroom</Text>
-        <Text style={styles.accessCard}><b>Access Card</b></Text>
-        <Text style={styles.helpText}>Please help. I require urgent access to a washroom.</Text>
+      <View style={styles.cardBody}>
+        <View style={styles.cardIcon}>
+          <Image style={styles.iconImage} source={require('../assets/CCC-GOHERE-CS5-1.jpg')}/>
+        </View> 
+        <View style={styles.cardText}>
+          <Text style={styles.washroom}>Washroom</Text>
+          <Text style={styles.accessCard}>Access Card</Text>
+          <Text style={styles.helpText}>Please help. I require urgent access to a washroom.</Text>
+        </View>
       </View>
-    </View>
   )
 }
 
@@ -31,11 +31,8 @@ const styles = StyleSheet.create({
     maxWidth: 1035,
     maxHeight: 540,
     height: 46*vw,
-    backgroundColor: '#ffffff',
-    borderRadius: 3*vw,
-    shadowOffset: {width: -0.5*vw, height: 0.5*vw},
-    shadowRadius: 1*vw,
-    shadowOpacity: 0.3,
+    borderRadius: 10,
+    elevation: 3,
   },
   cardIcon: {
     width: '30%',
@@ -63,6 +60,7 @@ const styles = StyleSheet.create({
     marginLeft: 4*vw,
     fontSize: 5*vw,
     color: '#ffffff',
+    fontWeight: 'bold',
   }, 
   helpText: {
     marginLeft: 4*vw,
