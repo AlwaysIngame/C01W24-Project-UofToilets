@@ -64,11 +64,12 @@ const styles = StyleSheet.create({
   }, 
   helpText: {
     marginLeft: 4*vw,
+    paddingRight: 4*vw,
     fontSize: 3*vw,
     color: '#ffffff',
     position: 'absolute',
     bottom: 0,
-    marginBottom: 8*vw,
+    marginBottom: 5*vw,
   },
 });
 
