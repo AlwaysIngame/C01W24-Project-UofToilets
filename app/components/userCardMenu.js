@@ -1,13 +1,16 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet, Modal, Button, Dimensions } from 'react-native';
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, { TouchableOpacity } from '@gorhom/bottom-sheet';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
 
 const CardMenu = () => {
-  const snapPoints = useMemo(() => ['50%'], []);
+  //Update function to get disease from database
+  const DName = () => (<Text style={styles.diseaseName}>Ulcerative Colitis</Text>);
+  
+  const DDesc = () => (<Text style={styles.diseaseDesc}>I live with colitis, a medical condition requiring urgent use of the washroom. Thank you for your understanding and cooperation.</Text>);
 
   const MenuRender = gestureHandlerRootHOC(() => (
     <View style={styles.container}> 
@@ -17,14 +20,16 @@ const CardMenu = () => {
         style={styles.sheetShadow}
       >
         <View>
-          <Text style={styles.diseaseName}>Ulcerative Colitis</Text>
-          <Text style={styles.diseaseDesc}>I live with colitis, a medical condition requiring urgent use of the washroom. Thank you for your understanding and cooperation.</Text>
+          <DName/>
+          <DDesc/>
         </View>
-        <View style={styles.infoButton}>
-          <Button title="CROHN'S AND COLITIS CANDADA" color="#efefef">=</Button>
-        </View>
-        <View style={styles.goHereButton}>
-          <Button title="GoHere Washroom Access Program" color="#000000"></Button>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.crohnsButtonStyle}>
+              <Text style={{textAlign: 'center', color: '#000000', fontSize: 16}}>CROHN'S AND COLITIS CANADA</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.goHereButtonStyle}>
+            <Text style={{textAlign: 'center', color: '#ffffff', fontWeight: 'bold', fontSize: 16}}>GoHere Washroom Access Program</Text>
+          </TouchableOpacity>
         </View>
       </BottomSheet>
     </View>
@@ -51,28 +56,19 @@ const styles = StyleSheet.create({
   },
   diseaseName: {
     marginTop: 2*vh,
-    marginLeft: 3*vw,
+    marginLeft: 4*vw, 
     fontSize: 6*vw, 
     fontWeight: 'bold',
   },
   diseaseDesc: {
     marginTop: 3*vh,
-    marginLeft: 3*vw,
+    marginLeft: 4*vw,
     marginRight: 3*vw,
-    fontSize: 3.75*vw,
-  },
-  infoButton: {
-    margin: 'auto',
-    marginTop: 8*vh, //can adjust this to satisfy requirments.
-    width: '90%',
-  },
-  goHereButton: {
-    margin: 'auto',
-    marginTop: 1*vh,
-    width: '90%',
+    fontSize: 3.7*vw,
+    lineHeight: 32,
   },
   sheetShadow: {
-    backgroundColor: 'white',  // <==== HERE
+    backgroundColor: 'rgba(255, 255, 255,0)',  // <==== HERE
     borderRadius: 24,
     shadowColor: '#000000',
     shadowOffset: {
@@ -83,6 +79,29 @@ const styles = StyleSheet.create({
     shadowRadius: 24,
     elevation: 10,
   },
+  crohnsButtonStyle: {
+    marginLeft: 2.5*vw,
+    width: '95%',
+    padding: 10,
+    backgroundColor: '#efefef',
+    borderRadius: 5,
+  },
+  goHereButtonStyle: {
+    marginTop: 3*vw,
+    marginLeft: 2.5*vw,
+    width: '95%',
+    padding: 10,
+    backgroundColor: '#000000',
+    borderRadius: 5,
+    fontWeight: 'bold',
+  },
+  buttonContainer: {
+    marginTop: 20*vw,
+    width: '100%',
+  },
+  buttonTextStyle: {
+    textAlign: 'center'
+  }
 });
 
 export default CardMenu;
