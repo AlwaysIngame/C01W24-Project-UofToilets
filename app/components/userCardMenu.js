@@ -1,28 +1,21 @@
-import { BottomSheet } from 'react-spring-bottom-sheet'
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { Dimensions } from 'react-native'
-import 'react-spring-bottom-sheet/dist/style.css'
+import React, { useCallback, useMemo, useRef } from 'react';
+import { View, Text, StyleSheet, Modal, Button, Dimensions } from 'react-native';
+import BottomSheet from '@gorhom/bottom-sheet';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
 
-const CardForm = () => {
-  return (
-    <>
-      <BottomSheet 
-      open 
-      skipInitialTransition 
-      blocking={false}
-      defaultSnap={({ maxHeight }) => maxHeight / 4}
-      //These values can be changed according to page requirements
-      snapPoints={({ maxHeight }) => [ 
-        maxHeight / 1.5,
-        maxHeight / 4,
-      ]}
-      expandOnContentDrag
-      >
+const CardMenu = () => {
+  const snapPoints = useMemo(() => ['50%'], []);
+
+  const MenuRender = gestureHandlerRootHOC(() => (
+    <View style={styles.container}> 
+      <BottomSheet snapPoints={snapPoints}
+                   style={styles.sheetStyle}
+                   >
         <View>
-          <Text style={styles.diseaseName}><b>Ulcerative Colitis</b></Text>
+          <Text style={styles.diseaseName}>Ulcerative Colitis</Text>
           <Text style={styles.diseaseDesc}>I live with colitis, a medical condition requiring urgent use of the washroom. Thank you for your understanding and cooperation.</Text>
         </View>
         <View style={styles.infoButton}>
@@ -32,11 +25,28 @@ const CardForm = () => {
           <Button title="GoHere Washroom Access Program" color="#000000"></Button>
         </View>
       </BottomSheet>
-    </>
-  )
-}
+    </View>
+    )
+  );
+
+  // renders
+  return (
+    <Modal>
+      <MenuRender/>
+    </Modal>
+  );
+};
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    //backgroundColor: 'grey',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
   diseaseName: {
     marginTop: 2*vh,
     marginLeft: 3*vw,
@@ -57,7 +67,10 @@ const styles = StyleSheet.create({
     margin: 'auto',
     marginTop: 1*vh,
     width: '90%',
-  }
+  },
+  sheetStyle: {
+    elevation: 10,
+  },
 });
 
-export default CardForm;
+export default CardMenu;
