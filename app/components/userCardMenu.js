@@ -11,9 +11,11 @@ const CardMenu = () => {
 
   const MenuRender = gestureHandlerRootHOC(() => (
     <View style={styles.container}> 
-      <BottomSheet snapPoints={snapPoints}
-                   style={styles.sheetStyle}
-                   >
+      <BottomSheet
+        index={1}
+        snapPoints={['25%', '50%']}
+        style={styles.sheetShadow}
+      >
         <View>
           <Text style={styles.diseaseName}>Ulcerative Colitis</Text>
           <Text style={styles.diseaseDesc}>I live with colitis, a medical condition requiring urgent use of the washroom. Thank you for your understanding and cooperation.</Text>
@@ -26,7 +28,7 @@ const CardMenu = () => {
         </View>
       </BottomSheet>
     </View>
-    )
+    ) 
   );
 
   // renders
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    //backgroundColor: 'grey',
+    backgroundColor: 'white',
   },
   contentContainer: {
     flex: 1,
@@ -51,6 +53,7 @@ const styles = StyleSheet.create({
     marginTop: 2*vh,
     marginLeft: 3*vw,
     fontSize: 6*vw, 
+    fontWeight: 'bold',
   },
   diseaseDesc: {
     marginTop: 3*vh,
@@ -68,7 +71,16 @@ const styles = StyleSheet.create({
     marginTop: 1*vh,
     width: '90%',
   },
-  sheetStyle: {
+  sheetShadow: {
+    backgroundColor: 'white',  // <==== HERE
+    borderRadius: 24,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 24,
     elevation: 10,
   },
 });
