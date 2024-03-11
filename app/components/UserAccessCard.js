@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
     width: '30%',
     height: '100%',
     backgroundColor: '#ffffff',
+    display: 'flex',
+    justifyContent: 'center',
   },
   cardText: {
     width: '70%',
@@ -61,6 +63,7 @@ const styles = StyleSheet.create({
     height: '80%',
     maxWidth: '100%',
     margin: 'auto',
+    
   },
   washroom: {
     marginTop: 3*vw,
@@ -102,6 +105,3 @@ const styles = StyleSheet.create({
     marginTop: 2*vw,
   }
 });
-
-//Export Component
-//export default UserAccessCard;
