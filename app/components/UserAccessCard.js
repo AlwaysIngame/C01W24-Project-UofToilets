@@ -6,7 +6,18 @@ const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
 
 //Component Functions and Constructor
-const UserAccessCard = () => {
+export default function UserAccessCard(){
+
+  function getDisease() {
+    //Database fetch disease on profile - for now, return colitis
+    return "Ulcerative Colitis";
+  };
+
+  function getName() {
+    //Database fetch Name on profile - for now, return Nothing
+    return "Kieran Hansen";
+  };
+
   return (
       <View style={styles.cardBody}>
         <View style={styles.cardIcon}>
@@ -15,6 +26,8 @@ const UserAccessCard = () => {
         <View style={styles.cardText}>
           <Text style={styles.washroom}>Washroom</Text>
           <Text style={styles.accessCard}>Access Card</Text>
+          <Text style={styles.diseaseLabel}>{getDisease()}</Text>
+          <Text style={styles.nameLabel}>{getName()}</Text>
           <Text style={styles.helpText}>Please help. I require urgent access to a washroom.</Text>
         </View>
       </View>
@@ -71,7 +84,24 @@ const styles = StyleSheet.create({
     bottom: 0,
     marginBottom: 5*vw,
   },
+  diseaseLabel: {
+    padding: 3,
+    borderWidth: 1,
+    width: 28*vw,
+    color: 'white',
+    borderColor: 'white',
+    textAlign: 'center',
+    borderRadius: 7,
+    marginTop: 2.5*vw,
+    marginLeft: 4*vw,
+  },
+  nameLabel: {
+    color: 'white',
+    fontWeight: 'bold',
+    marginLeft: 4*vw,
+    marginTop: 2*vw,
+  }
 });
 
 //Export Component
-export default UserAccessCard;
+//export default UserAccessCard;
