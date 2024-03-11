@@ -47,10 +47,12 @@ app.post("/registerUser", express.json(), async (req, res) => {
             return res.status(400).json({error: "Missing username or password."});
         }
 
+        console.log("Regieter");
+
         const userCollection = db.collection(COLLECTIONS.users);
         const existingUser = await userCollection.findOne({ username });
         if (existingUser) {
-            return res.status(400).json({ error: "Username al"})
+            return res.status(400).json({ error: "Username already exists."})
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -61,10 +63,10 @@ app.post("/registerUser", express.json(), async (req, res) => {
 
         const token = jwt.sign({ username }, "secret-key", { expiresIn: "1h" });
         res.status(201).json({ response: "User registered successfully.", token });
-      } catch (error: any) {
+    } catch (error: any) {
         res.status(500).json({ error: error.message });
-      }
-    });
+    }
+});
 
 app.post("/loginUser", express.json(), async (req, res) => {
     try {
@@ -93,6 +95,45 @@ app.post("/loginUser", express.json(), async (req, res) => {
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
-    });
+});
+
+app.delete("/deleteUser", express.json(), async (req, res) => {
+    try {
+        const username: string | undefined = req.body.username;
+        const password: string | undefined = req.body.password;
+
+        if (!req.headers.authorization) {
+            return res.status(401).json({ error: "Missing authentication token"});
+        }
+
+        const token = req.headers.authorization.split(" ")[1];
+
+        if (!username || !password) {
+        return res.status(400).json({ error: "Missing username or password." });
+        }
+
+        const userCollection = db.collection(COLLECTIONS.users);
+        const user = await userCollection.findOne({ username });
+    
+        if (!(user && (await bcrypt.compare(password, user.password)))) {
+            return res.status(401).json({ error: "Incorrect username or password." });
+        }
+
+        jwt.verify(token, "secret-key", async (err, decoded) => {
+            if (err) { return res.status(401).send("Unauthorized."); }
+            console.log(decoded);
+            const result = await userCollection.deleteOne({ username: username });
+            // Delete all other information
+            
+            if (result.deletedCount === 1) {
+                res.status(200).json({ response: "User " + username + " deleted."});
+            } else {
+                res.status(404).json({ error: "Could not find username to delete." })
+            }
+        });
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 
