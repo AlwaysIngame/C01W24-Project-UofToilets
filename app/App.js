@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import  ScrollableList from './components/washroomList' ;
+import { NavigationContainer } from '@react-navigation/native';
+import TabNavigation from './components/navbar';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ScrollableList />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <TabNavigation/>
+    </NavigationContainer>
   );
 }
 
