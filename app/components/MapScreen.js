@@ -10,7 +10,7 @@ export function MapScreen() {
   const [errorMsg, setErrorMsg] = useState(null);
 
   const sheetRef = useRef(null);
-  const snapPoints = ['5%', '50%', '90%'];
+  const snapPoints = ['14%', '30%', '90%'];
 
   useEffect(() => {
     (async () => {
@@ -29,6 +29,10 @@ export function MapScreen() {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
     })();
+  }, []);
+
+  const handleSearchPress = useCallback(() => {
+    sheetRef.current?.snapToIndex(2); // Snap to 90%
   }, []);
 
   const handleSheetChange = useCallback((index) => {
@@ -57,7 +61,7 @@ export function MapScreen() {
         onChange={handleSheetChange}
       >
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          <ScrollableList />
+          <ScrollableList onSearchPress={handleSearchPress} />
         </BottomSheetScrollView>
       </BottomSheet>
     </View>

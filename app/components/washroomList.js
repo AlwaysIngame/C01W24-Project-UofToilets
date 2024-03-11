@@ -20,7 +20,7 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
   return Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2));
 };
 
-const ScrollableList = () => {
+const ScrollableList = (props) => {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
   const [userLocation, setUserLocation] = useState(null);
@@ -55,6 +55,7 @@ const ScrollableList = () => {
         value={search}
         onChangeText={setSearch}
         placeholder="Search for a washroom..."
+        onFocus={props.onSearchPress}
       />
       <ScrollView style={{ flex: 1 }}>
         {filteredItems.length > 0 ? (
