@@ -22,7 +22,6 @@ const SponsorCarousel = () => {
         autoPlay={false}
         data={[...new Array(4).keys()]}
         scrollAnimationDuration={1000}
-        onSnapToItem={(index) => console.log('current index:', index)}
         renderItem={({ index }) => (
             <View
                 style={styles.carouselContainer}
