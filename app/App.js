@@ -6,6 +6,7 @@ import TabNavigation from './components/navbar';
 import InfoBlurb from './components/InfoBlurb';
 import TestComponent from './components/testcomponent';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SignupScreen from './components/SignupScreen';
 
 export default function App() {
 
@@ -13,8 +14,10 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Tabs' screenOptions={{animationEnabled: true, navigationBarColor: "#FFFFFF"}}>
+      <Stack.Navigator initialRouteName='Login' screenOptions={{animationEnabled: true, navigationBarColor: "#FFFFFF"}}>
         <Stack.Screen name="Tabs" component={TabNavigation} options={{headerShown: false}}/>
+        <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -5,15 +5,15 @@ import { SERVER_URL } from '../src/constants';
 
 
 
-export default function LoginScreen(props) {
+export default function SignupScreen(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const login = async (username, password) => {
+  const signUp = async (username, password) => {
     try {
-
-      const loginRes = await fetch(`${SERVER_URL}/loginUser`, {
+      
+      const loginRes = await fetch(`${SERVER_URL}/registerUser`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -24,30 +24,32 @@ export default function LoginScreen(props) {
         })
       })
     
-      if (loginRes.ok) {
-        setErrorMessage("");
-        props.navigation.navigate("Tabs");
-      } else {
-        setErrorMessage("Invalid Username or Password.");
-      }
-    
       const loginBody = await loginRes.json();
 
+      if (loginRes.ok) {
+        setErrorMessage("");
+        props.navigation.navigate("Tabs")
+      } else {
+        setErrorMessage(loginBody.error);
+      }
+    
+
     } catch (error) {
-      setErrorMessage("Login failure: " + error);
+      setErrorMessage("Signup failure: " + error);
     }
   } 
-
 
   return (
     <View style={styles.container}>
       <Text>GoHere Logo</Text>
+      <Text>Signup</Text>
       <TextInput placeholder='Username' onChangeText={setUsername}></TextInput>
       <TextInput placeholder='Password' onChangeText={setPassword}></TextInput>
+      <TextInput placeholder='Re-Enter Password' onChangeText={setPassword}></TextInput>
       {errorMessage !== "" ? <Text style={{color: "#FF0000"}}>{errorMessage}</Text> : null}
-      <Button title='Login' onPress={() => login(username, password)}/>
-      <Text>Dont have an account?</Text>
-      <Button title='Sign up' onPress={() => props.navigation.navigate("Signup")}/>
+      <Button title='Register' onPress={() => signUp(username, password)}/>
+      <Text>Already Have an account?</Text>
+      <Button title='Login' onPress={() => props.navigation.navigate("Login")}/>
     </View>
   );
 }
