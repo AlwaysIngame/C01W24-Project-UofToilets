@@ -1,12 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import TabNavigation from './components/navbar';
+import InfoBlurb from './components/InfoBlurb';
+import TestComponent from './components/testcomponent';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function App() {
+
+  const Stack = createNativeStackNavigator();
+
   return (
     <NavigationContainer>
-      <TabNavigation/>
+      <Stack.Navigator initialRouteName='Tabs' screenOptions={{animationEnabled: true, navigationBarColor: "#FFFFFF"}}>
+        <Stack.Screen name="Tabs" component={TabNavigation} options={{headerShown: false}}/>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
