@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   crohnsButtonStyle: {
     marginLeft: 2.5*vw,
     width: '95%',
-    padding: 10,
+    padding: 15,
     backgroundColor: '#efefef',
     borderRadius: 5,
   },
@@ -112,13 +112,13 @@ const styles = StyleSheet.create({
     marginTop: 3*vw,
     marginLeft: 2.5*vw,
     width: '95%',
-    padding: 10,
+    padding: 15,
     backgroundColor: '#000000',
     borderRadius: 5,
     fontWeight: 'bold',
   },
   buttonContainer: {
-    marginTop: 20*vw,
+    marginTop: 42*vw,
     width: '100%',
   },
   buttonTextStyle: {
