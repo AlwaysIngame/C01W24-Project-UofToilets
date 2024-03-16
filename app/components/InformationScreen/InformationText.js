@@ -6,7 +6,7 @@ const vw = Dimensions.get('window').width / 100;
 const InfoBlurb = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}><b>About GoHere</b></Text>
+      <Text style={styles.title}>About GoHere</Text>
       <Text style={styles.body}>Crohn's and Colitis Canada's GoHere program helps create understanding, supportive and accessible communities by improving washroom access.</Text>
     </View>
   );
@@ -14,15 +14,17 @@ const InfoBlurb = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 5*vw,
+    padding: 24,
   },
   title: {
     color: '#ec5255',
-    fontSize: 8*vw,
+    fontSize: 30,
+    fontWeight: 'bold',
   },
   body: {
     marginTop: 4*vw,
-    fontSize: 4*vw,
+    fontSize: 3.7*vw,
+    lineHeight: 32,
   },
 });
 

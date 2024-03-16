@@ -6,6 +6,7 @@ import TestComponent from './testcomponent';
 import UserAccessCard from './UserAccessCard';
 import ScrollableList from './washroomList';
 import { MapScreen } from './MapScreen';
+import InformationScreen from './InformationScreen/InformationScreen';
 
 export default function TabNavigation() {
 
@@ -16,6 +17,7 @@ export default function TabNavigation() {
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
       <Tab.Screen name="Card" component={UserAccessCard}/>
       <Tab.Screen name="Washrooms" component={ScrollableList}/>
+      <Tab.Screen name="Info" component={InformationScreen} options={{headerShown: false}}/>
     </Tab.Navigator>
   );
 }
