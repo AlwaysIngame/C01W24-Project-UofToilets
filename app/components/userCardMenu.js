@@ -2,13 +2,14 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet, Modal, Button, Dimensions, Linking } from 'react-native';
 import BottomSheet, { TouchableOpacity } from '@gorhom/bottom-sheet';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import UserAccessCard from './UserAccessCard';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
 
 const CardMenu = () => {
   //Snap point constants
-  const snapPoints = (['25%', '50%']);
+  const snapPoints = (['25%', '60%']);
   
   //TODO: Update function to get disease from database
   const DName = () => (
@@ -30,6 +31,13 @@ const CardMenu = () => {
 
   const MenuRender = gestureHandlerRootHOC(() => (
     <View style={styles.container}> 
+      <Text style={{color: '#ec5255',
+                    fontWeight: 'bold',
+                    fontSize: 30,
+                    marginTop: 4*vh,
+                    marginBottom: 2*vh,}}>
+                      Access Card</Text>
+      <UserAccessCard/>
       <BottomSheet
         index={1}
         snapPoints={snapPoints}
@@ -54,9 +62,7 @@ const CardMenu = () => {
 
   // renders
   return (
-    <Modal>
       <MenuRender/>
-    </Modal>
   );
 };
 
@@ -98,7 +104,7 @@ const styles = StyleSheet.create({
   crohnsButtonStyle: {
     marginLeft: 2.5*vw,
     width: '95%',
-    padding: 10,
+    padding: 15,
     backgroundColor: '#efefef',
     borderRadius: 5,
   },
@@ -106,13 +112,13 @@ const styles = StyleSheet.create({
     marginTop: 3*vw,
     marginLeft: 2.5*vw,
     width: '95%',
-    padding: 10,
+    padding: 15,
     backgroundColor: '#000000',
     borderRadius: 5,
     fontWeight: 'bold',
   },
   buttonContainer: {
-    marginTop: 20*vw,
+    marginTop: 42*vw,
     width: '100%',
   },
   buttonTextStyle: {
