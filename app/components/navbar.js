@@ -14,11 +14,13 @@ export default function TabNavigation() {
   const Tab = createBottomTabNavigator();
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <Tab.Navigator>
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
       <Tab.Screen name="Card" component={CardMenu} options={{headerShown: false}}/>
       <Tab.Screen name="Washrooms" component={ScrollableList}/>
       <Tab.Screen name="Info" component={InformationScreen} options={{headerShown: false}}/>
     </Tab.Navigator>
+    </GestureHandlerRootView>
   );
 }
