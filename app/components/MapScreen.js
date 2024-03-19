@@ -71,7 +71,7 @@ export function MapScreen({ washroomList }) {
         ref={sheetRef}
         index={1}
         snapPoints={snapPoints}
-        onChange={handleSheetChange}
+        //onChange={handleSheetChange}
       >
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
           <ScrollableList onSearchPress={handleSearchPress} />

@@ -91,7 +91,7 @@ test("/registerUser - Attempt to register a user that already exists", async () 
     
 })
 
-test("/registerUser - Login with valid credentials", async () => {
+test("/loginUser - Login with valid credentials", async () => {
     const username = "testuser1"
     const password = "12345678"
 

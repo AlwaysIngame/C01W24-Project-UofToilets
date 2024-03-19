@@ -39,7 +39,7 @@ const CardMenu = () => {
                       Access Card</Text>
       <UserAccessCard/>
       <BottomSheet
-        index={1}
+        index={0}
         snapPoints={snapPoints}
         style={styles.sheetShadow}
       >
