@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
 import ScrollableList from './washroomList';
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
-export function MapScreen() {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+export function MapScreen({ washroomList }) {
 
+  const [location, setLocation] = useState(null);
+  const [isRegionChanged, setRegionChanged] = useState(false);
   const sheetRef = useRef(null);
   const snapPoints = ['14%', '30%', '90%'];
 
@@ -16,7 +16,6 @@ export function MapScreen() {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
         setLocation({
           coords: {
             latitude: 43.65107,
@@ -35,6 +34,11 @@ export function MapScreen() {
     sheetRef.current?.snapToIndex(2); // Snap to 90%
   }, []);
 
+  const searchArea = useCallback(() => {
+    setRegionChanged(false);
+    // Update washrooms from database by taking current region
+  })
+
   const handleSheetChange = useCallback((index) => {
     console.log('handleSheetChange', index);
   }, []);
@@ -50,20 +54,25 @@ export function MapScreen() {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
+          onRegionChangeComplete={() => { setRegionChanged(true) }}
+          provider={PROVIDER_GOOGLE}
         />
       ) : (
         <Text>Loading...</Text>
       )}
-      <BottomSheet
-        ref={sheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChange}
-      >
-        <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          <ScrollableList onSearchPress={handleSearchPress} />
-        </BottomSheetScrollView>
-      </BottomSheet>
+      <View style={{ display: 'flex', flexDirection: "row", position: 'absolute', width: '100%', height: '100%', justifyContent: 'center' }}>
+        {isRegionChanged ? <View style={styles.searchButton}><Button title='Search this area' onPress={searchArea} /></ View> : null}
+        <BottomSheet
+          ref={sheetRef}
+          index={1}
+          snapPoints={snapPoints}
+          onChange={handleSheetChange}
+        >
+          <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
+            <ScrollableList onSearchPress={handleSearchPress} />
+          </BottomSheetScrollView>
+        </BottomSheet>
+      </View>
     </View>
   );
 }
@@ -81,4 +90,10 @@ const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: 'white',
   },
+  searchButton: {
+    position: 'relative',
+    alignItems: 'center',
+    width: '40%',
+    top: 50,
+  }
 });
