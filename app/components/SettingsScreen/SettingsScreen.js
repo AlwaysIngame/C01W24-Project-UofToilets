@@ -45,7 +45,7 @@ function SettingsScreen(){
         <Text style={styles.sectionTitle}>APP SETTINGS</Text>
 
         <TouchableOpacity style={{flexDirection: 'row', marginBottom: 3*vh,}}
-                          onPress={openProfile}>
+                          onPress={openLocationPerms}>
           <Text style={styles.buttonFont}>Location Permission</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
@@ -54,7 +54,7 @@ function SettingsScreen(){
       <View>
         <Text style={styles.sectionTitle}>PRIVACY AND TERMS</Text>
         <TouchableOpacity style={{flexDirection: 'row', marginBottom: 3*vh,}}
-                          onPress={openProfile}>
+                          onPress={openPrivacyPolicy}>
           <Text style={styles.buttonFont}>Privacy Policy</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
@@ -63,7 +63,7 @@ function SettingsScreen(){
       <View>
         <Text style={styles.sectionTitle}>SUPPORT</Text>
         <TouchableOpacity style={{flexDirection: 'row', marginBottom: 3*vh,}}
-                          onPress={openProfile}>
+                          onPress={openSupport}>
           <Text style={styles.buttonFont}>Request Support</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
