@@ -16,9 +16,14 @@ export default function TabNavigation(props) {
   
   const checkLoggedIn = async () => {
     loggedin = await AsyncStorage.getItem("logged_in");
+    token = await AsyncStorage.getItem("session_token")
     if (loggedin != "true") {
       console.log("Navigating")
       props.navigation.replace("Welcome");
+    } else {
+      if (token !== "") {
+        props.navigation.replace("BOTabs")
+      }
     }
     console.log(loggedin)
     
