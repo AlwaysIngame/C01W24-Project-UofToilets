@@ -15,6 +15,7 @@ export default function TabNavigation(props) {
   const Tab = createBottomTabNavigator();
   
   const checkLoggedIn = async () => {
+    loggedin = await AsyncStorage.getItem("logged_in");
     if (loggedin != "true") {
       console.log("Navigating")
       props.navigation.replace("Welcome");
