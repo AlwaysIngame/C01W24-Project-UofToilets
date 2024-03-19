@@ -14,12 +14,29 @@ function SettingsScreen(){
     return "1.0.0"; 
   };
 
+  function openProfile(){
+
+  }
+
+  function openLocationPerms(){
+
+  }
+
+  function openPrivacyPolicy() {
+
+  }
+
+  function openSupport(){
+
+  }
+
   //Render component
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Settings</Text>
 
-      <TouchableOpacity style={{flexDirection: 'row', marginTop: 4*vh, marginBottom: 3*vh,}}>
+      <TouchableOpacity style={{flexDirection: 'row', marginTop: 4*vh, marginBottom: 3*vh,}}
+                        onPress={openProfile}>
         <Text style={styles.buttonFont}>My Profile</Text>
         <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
       </TouchableOpacity>
@@ -27,7 +44,8 @@ function SettingsScreen(){
       <View>
         <Text style={styles.sectionTitle}>APP SETTINGS</Text>
 
-        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 2*vh,}}>
+        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 3*vh,}}
+                          onPress={openProfile}>
           <Text style={styles.buttonFont}>Location Permission</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
@@ -35,7 +53,8 @@ function SettingsScreen(){
 
       <View>
         <Text style={styles.sectionTitle}>PRIVACY AND TERMS</Text>
-        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 2*vh,}}>
+        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 3*vh,}}
+                          onPress={openProfile}>
           <Text style={styles.buttonFont}>Privacy Policy</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
@@ -43,7 +62,8 @@ function SettingsScreen(){
 
       <View>
         <Text style={styles.sectionTitle}>SUPPORT</Text>
-        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 2*vh,}}>
+        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 3*vh,}}
+                          onPress={openProfile}>
           <Text style={styles.buttonFont}>Request Support</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
@@ -51,7 +71,7 @@ function SettingsScreen(){
 
       <View style={{flexDirection: 'row', marginTop: 2*vh,}}>
         <Text style={styles.buttonFont}>Version</Text>  
-        <Text style={{position: 'absolute', right: 5,}}>{getVersionNumber()}</Text>
+        <Text style={{position: 'absolute', right: 5, fontSize: 16,}}>{getVersionNumber()}</Text>
       </View>
       
     </View>
