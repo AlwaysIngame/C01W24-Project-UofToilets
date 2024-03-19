@@ -10,7 +10,7 @@ const vw = Dimensions.get('window').width / 100;
 function BusinessOwnerAccount(props) {
 
     const logoutAction = () => {
-        AsyncStorage.setItem("session_token", null);
+        AsyncStorage.setItem("session_token", "");
         AsyncStorage.setItem("logged_in", "false");
         props.navigation.replace("Welcome");
     }

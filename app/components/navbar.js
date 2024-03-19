@@ -25,7 +25,6 @@ export default function TabNavigation(props) {
         props.navigation.replace("BOTabs")
       }
     }
-    console.log(loggedin)
     
   }
 

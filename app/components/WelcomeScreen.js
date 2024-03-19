@@ -7,15 +7,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function WelcomeScreen(props) {
-
   return (
     <View style={styles.container}>
       <Text>GoHere Logo</Text>
       <Text>Welcome to GoHere</Text>
       <Button title='I am a User' onPress={() => {
-        props.navigation.navigate("Tabs");
+        props.navigation.replace("Tabs");
         AsyncStorage.setItem("logged_in", "true");
-        AsyncStorage.setItem("session_token", null);
+        AsyncStorage.setItem("session_token", "");
         }}/>
       <Button title='I am a Business Owner' onPress={() => props.navigation.navigate("Login")}/>
     </View>
