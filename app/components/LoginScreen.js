@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SERVER_URL } from '../src/constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -24,19 +25,22 @@ export default function LoginScreen(props) {
         })
       })
     
+      const loginBody = await loginRes.json();
+
       if (loginRes.ok) {
         setErrorMessage("");
+        AsyncStorage.setItem("session_token", loginBody.token);
         props.navigation.navigate("Tabs");
       } else {
-        setErrorMessage("Invalid Username or Password.");
+        setErrorMessage(loginBody.error);
       }
     
-      const loginBody = await loginRes.json();
 
     } catch (error) {
       setErrorMessage("Login failure: " + error);
     }
   } 
+
 
 
   return (

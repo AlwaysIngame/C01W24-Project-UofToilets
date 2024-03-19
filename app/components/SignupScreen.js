@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SERVER_URL } from '../src/constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -24,13 +25,14 @@ export default function SignupScreen(props) {
         })
       })
     
-      const loginBody = await loginRes.json();
+      const signupBody = await loginRes.json();
 
       if (loginRes.ok) {
         setErrorMessage("");
+        AsyncStorage.setItem("session_token", signupBody.token);
         props.navigation.navigate("Tabs")
       } else {
-        setErrorMessage(loginBody.error);
+        setErrorMessage(signupBody.error);
       }
     
 

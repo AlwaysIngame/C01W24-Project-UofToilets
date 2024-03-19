@@ -62,7 +62,7 @@ app.post("/registerUser", express.json(), async (req, res) => {
         });
 
         const token = jwt.sign({ username }, "secret-key", { expiresIn: "1h" });
-        res.status(201).json({ response: "User registered successfully.", token });
+        res.status(201).json({ response: "User registered successfully.", token: token });
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }
