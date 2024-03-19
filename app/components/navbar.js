@@ -9,6 +9,7 @@ import { MapScreen } from './MapScreen';
 import InformationScreen from './InformationScreen/InformationScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SettingsScreen from './SettingsScreen/SettingsScreen';
 
 export default function TabNavigation(props) {
 
@@ -39,8 +40,8 @@ export default function TabNavigation(props) {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
       <Tab.Screen name="Card" component={CardMenu} options={{headerShown: false}}/>
-      <Tab.Screen name="Washrooms" component={ScrollableList}/>
       <Tab.Screen name="Info" component={InformationScreen} options={{headerShown: false}}/>
+      <Tab.Screen name="Settings" component={SettingsScreen} options={{headerShown: false}}/>
     </Tab.Navigator>
     </GestureHandlerRootView>
   );
