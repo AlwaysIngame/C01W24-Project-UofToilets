@@ -17,7 +17,6 @@ function SettingsScreen({ navigation }){
   function openProfile(){
     //Placeholder, working on this on separate branch
     navigation.navigate('My Profile');
-    //console.log("Solution in progress")
   }
 
   function openLocationPerms(){
