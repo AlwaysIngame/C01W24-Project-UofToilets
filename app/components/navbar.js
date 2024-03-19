@@ -7,7 +7,7 @@ import ScrollableList from './washroomList';
 import { MapScreen } from './MapScreen';
 import InformationScreen from './InformationScreen/InformationScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import SettingsScreen from './SettingsScreen/SettingsScreen';
+import MasterSettingsScreen from './SettingsScreen/SettingsMaster';
 
 export default function TabNavigation() {
 
@@ -19,7 +19,7 @@ export default function TabNavigation() {
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
       <Tab.Screen name="Card" component={CardMenu} options={{headerShown: false}}/>
       <Tab.Screen name="Info" component={InformationScreen} options={{headerShown: false}}/>
-      <Tab.Screen name="Settings" component={SettingsScreen} options={{headerShown: false}}/>
+      <Tab.Screen name="Settings" component={MasterSettingsScreen} options={{headerShown: false}}/>
     </Tab.Navigator>
     </GestureHandlerRootView>
   );
