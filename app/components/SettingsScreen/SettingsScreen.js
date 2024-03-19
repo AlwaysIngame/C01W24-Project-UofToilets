@@ -1,7 +1,7 @@
-import { StyleSheet, Dimensions, View, Text, Linking } from 'react-native';
+import { StyleSheet, Dimensions, View, Text } from 'react-native';
+import * as Linking from 'expo-linking';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
-import { version } from 'react';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
@@ -15,15 +15,15 @@ function SettingsScreen(){
   };
 
   function openProfile(){
-
+    
   }
 
   function openLocationPerms(){
-
+    Linking.openSettings();
   }
 
   function openPrivacyPolicy() {
-
+    Linking.openURL('https://crohnsandcolitis.ca/About-Us/Policies/Privacy-Policy').catch(err => console.error("Couldn't load page", err));
   }
 
   function openSupport(){
