@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import * as Location from 'expo-location';
 import ScrollableList from './washroomList';
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
@@ -60,19 +61,22 @@ export function MapScreen({ washroomList }) {
       ) : (
         <Text>Loading...</Text>
       )}
-      <View style={{ display: 'flex', flexDirection: "row", position: 'absolute', width: '100%', height: '100%', justifyContent: 'center' }}>
+      <View style={{ height: 'fit-content', top: 50, display: 'flex', flexDirection: "column", position: 'absolute', width: '100%', justifyContent: 'center' }}>
+        <View style={{ order: 1, paddingHorizontal: 10}}>
+          <GooglePlacesAutocomplete placeholder='Search' query={{ key: process.env.EXPO_PUBLIC_GOOGLE_MAPS_PLATFORM_API_KEY, language: 'en' }} onPress={(data, details = null) => {console.log(data, details)}} />
+        </ View>
         {isRegionChanged ? <View style={styles.searchButton}><Button title='Search this area' onPress={searchArea} /></ View> : null}
-        <BottomSheet
-          ref={sheetRef}
-          index={1}
-          snapPoints={snapPoints}
-          onChange={handleSheetChange}
-        >
-          <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-            <ScrollableList onSearchPress={handleSearchPress} />
-          </BottomSheetScrollView>
-        </BottomSheet>
       </View>
+      <BottomSheet
+        ref={sheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChange}
+      >
+        <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
+          <ScrollableList onSearchPress={handleSearchPress} />
+        </BottomSheetScrollView>
+      </BottomSheet>
     </View>
   );
 }
@@ -91,9 +95,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   searchButton: {
-    position: 'relative',
-    alignItems: 'center',
-    width: '40%',
-    top: 50,
+    order: 2,
+    width: 'auto',
+    alignSelf: 'center',
   }
 });
