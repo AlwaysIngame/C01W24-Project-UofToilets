@@ -15,7 +15,8 @@ function SettingsScreen(){
   };
 
   function openProfile(){
-    
+    //Placeholder, working on this on separate branch
+    console.log("Solution in progress")
   }
 
   function openLocationPerms(){
@@ -27,7 +28,7 @@ function SettingsScreen(){
   }
 
   function openSupport(){
-
+    Linking.openURL('mailto:gohere@crohnsandcolitis.ca')
   }
 
   //Render component
