@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import * as Linking from 'expo-linking';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 const vh = Dimensions.get('window').height / 100;
@@ -82,9 +82,9 @@ function SettingsScreen(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
-    paddingRight: 12,
-    paddingTop: 34,
+    paddingLeft: 24,
+    paddingRight: 24,
+    paddingTop: 24,
     backgroundColor: 'white',
   },
   iconStyle: {
@@ -95,12 +95,12 @@ const styles = StyleSheet.create({
     color: '#ec5255',
     fontWeight: 'bold',
     fontSize: 30,
-    marginTop: 4*vh,
+    // marginTop: 4*vh,
   },
   sectionTitle: {
     padding: 12,
     paddingLeft: 0,
-    marginRight: 5,
+    marginRight: 0,
     marginBottom: 2*vh,
     color: '#ec5255',
     borderBottomWidth: 1,

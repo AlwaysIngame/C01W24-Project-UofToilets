@@ -10,6 +10,7 @@ import InformationScreen from '../InformationScreen/InformationScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyWashrooms from './MyWashrooms';
+import BusinessOwnerAccount from './BusinessOwnerAccount';
 
 export default function BusinessOwnerTabs(props) {
 
@@ -20,7 +21,7 @@ export default function BusinessOwnerTabs(props) {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
       <Tab.Screen name="My Washrooms" component={MyWashrooms}/>
-      <Tab.Screen name="Account" component={InformationScreen} options={{headerShown: false}}/>
+      <Tab.Screen name="Account" component={BusinessOwnerAccount} navigation={props.navigation}/>
     </Tab.Navigator>
     </GestureHandlerRootView>
   );

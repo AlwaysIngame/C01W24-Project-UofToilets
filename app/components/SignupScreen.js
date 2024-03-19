@@ -31,7 +31,7 @@ export default function SignupScreen(props) {
         setErrorMessage("");
         AsyncStorage.setItem("session_token", signupBody.token);
         AsyncStorage.setItem("logged_in", "true");
-        props.navigation.navigate("Tabs")
+        props.navigation.navigate("BOTabs")
       } else {
         setErrorMessage(signupBody.error);
       }
