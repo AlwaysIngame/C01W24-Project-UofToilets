@@ -1,1 +1,1 @@
-export const SERVER_URL = "http://192.168.137.1:4000"
+export const SERVER_URL = "http://cooldrop.fr.to:4000"

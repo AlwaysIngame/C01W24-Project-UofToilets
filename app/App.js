@@ -1,10 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import LoginScreen from './components/LoginScreen';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import TabNavigation from './components/navbar';
-import InfoBlurb from './components/InfoBlurb';
-import TestComponent from './components/testcomponent';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignupScreen from './components/SignupScreen';
 

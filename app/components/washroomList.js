@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, StyleSheet, View, TextInput } from 'react-native';
+import * as Location from 'expo-location';
 
 const fetchWashrooms = () => {
   // simulate fetching data with coordinates
@@ -19,13 +20,22 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
   return Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2));
 };
 
-const ScrollableList = () => {
+const ScrollableList = (props) => {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
+  const [userLocation, setUserLocation] = useState(null);
 
   useEffect(() => {
-    // dummy location
-    const userLocation = { latitude: 37.7749, longitude: -122.4194 };
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setUserLocation(location.coords);
+    })();
 
     fetchWashrooms().then((data) => {
       const sortedData = data.map(item => ({
@@ -35,8 +45,7 @@ const ScrollableList = () => {
 
       setItems(sortedData);
     });
-  }, []);
-
+  }, [userLocation]);
   const filteredItems = items.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
@@ -46,6 +55,7 @@ const ScrollableList = () => {
         value={search}
         onChangeText={setSearch}
         placeholder="Search for a washroom..."
+        onFocus={props.onSearchPress}
       />
       <ScrollView style={{ flex: 1 }}>
         {filteredItems.length > 0 ? (

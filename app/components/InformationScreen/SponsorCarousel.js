@@ -6,10 +6,10 @@ const vw = Dimensions.get('window').width / 100;
 
 const SponsorCarousel = () => {
 
-  const sponsorImages = [<Image style={styles.carouselImage} source={require('../assets/SponsorLogos/TakedaLogo.jpg')}></Image>, 
-                        <Image style={styles.carouselImage} source={require('../assets/SponsorLogos/MerckLogo.jpg')}></Image>,
-                        <Image style={styles.carouselImage} source={require('../assets/SponsorLogos/ScottiesLogo.jpg')}></Image>,
-                        <Image style={styles.carouselImage} source={require('../assets/SponsorLogos/GutsywalkLogo.jpg')}></Image>]
+  const sponsorImages = [<Image style={styles.carouselImage} source={require('../../assets/SponsorLogos/TakedaLogo.jpg')}></Image>, 
+                        <Image style={styles.carouselImage} source={require('../../assets/SponsorLogos/MerckLogo.jpg')}></Image>,
+                        <Image style={styles.carouselImage} source={require('../../assets/SponsorLogos/ScottiesLogo.jpg')}></Image>,
+                        <Image style={styles.carouselImage} source={require('../../assets/SponsorLogos/GutsywalkLogo.jpg')}></Image>]
 
   const width = Dimensions.get('window').width;
 
@@ -38,14 +38,15 @@ const styles = StyleSheet.create({
   carouselContainer: {
     display: 'flex',
     justifyContent: 'center',
-    width: 95*vw,
+    width: 90*vw,
     height: 50*vw,
     margin: 'auto',
     borderWidth: 3,
     borderColor: '#efefef',
     borderRadius: 20,
     overflow: 'hidden',
-    marginLeft: 2.5*vw,
+    marginLeft: 5*vw,
+    backgroundColor: '#ffffff',
   },
   carouselImage: {
     width: 'auto',
