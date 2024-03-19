@@ -17,7 +17,6 @@ export default function TabNavigation() {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
       <Tab.Screen name="Card" component={CardMenu} options={{headerShown: false}}/>
-      <Tab.Screen name="Washrooms" component={ScrollableList}/>
       <Tab.Screen name="Info" component={InformationScreen} options={{headerShown: false}}/>
     </Tab.Navigator>
     </GestureHandlerRootView>
