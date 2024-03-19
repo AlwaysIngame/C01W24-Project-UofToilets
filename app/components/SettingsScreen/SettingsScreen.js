@@ -19,39 +19,38 @@ function SettingsScreen(){
     <View style={styles.container}>
       <Text style={styles.title}>Settings</Text>
 
-      <TouchableOpacity style={{flexDirection: 'row',}}>
-        <Text>My Profile</Text>
+      <TouchableOpacity style={{flexDirection: 'row', marginTop: 4*vh, marginBottom: 3*vh,}}>
+        <Text style={styles.buttonFont}>My Profile</Text>
         <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
       </TouchableOpacity>
 
       <View>
         <Text style={styles.sectionTitle}>APP SETTINGS</Text>
 
-        <TouchableOpacity style={{flexDirection: 'row',}}>
-          <Text>Location Permission</Text>
+        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 2*vh,}}>
+          <Text style={styles.buttonFont}>Location Permission</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
       </View>
 
       <View>
         <Text style={styles.sectionTitle}>PRIVACY AND TERMS</Text>
-
-        <TouchableOpacity style={{flexDirection: 'row',}}>
-          <Text>Privacy Policy</Text>
+        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 2*vh,}}>
+          <Text style={styles.buttonFont}>Privacy Policy</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
       </View>
 
       <View>
         <Text style={styles.sectionTitle}>SUPPORT</Text>
-        <TouchableOpacity style={{flexDirection: 'row',}}>
-          <Text>Request Support</Text>
+        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 2*vh,}}>
+          <Text style={styles.buttonFont}>Request Support</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
       </View>
 
-      <View style={{flexDirection: 'row',}}>
-        <Text>Version</Text>  
+      <View style={{flexDirection: 'row', marginTop: 2*vh,}}>
+        <Text style={styles.buttonFont}>Version</Text>  
         <Text style={{position: 'absolute', right: 5,}}>{getVersionNumber()}</Text>
       </View>
       
@@ -78,9 +77,10 @@ const styles = StyleSheet.create({
     marginTop: 4*vh,
   },
   sectionTitle: {
-    padding: 10,
+    padding: 12,
     paddingLeft: 0,
     marginRight: 5,
+    marginBottom: 2*vh,
     color: '#ec5255',
     borderBottomWidth: 1,
     borderBottomColor: '#cccccc',
@@ -88,6 +88,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  buttonFont: {
+    fontSize: 16,
+  },  
 });
 
 export default SettingsScreen;
