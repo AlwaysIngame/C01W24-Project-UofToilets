@@ -1,9 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import TabNavigation from './components/navbar';
-import InfoBlurb from './components/InfoBlurb';
-import TestComponent from './components/testcomponent';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function App() {
