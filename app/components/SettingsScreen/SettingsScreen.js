@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
 
-function SettingsScreen(){
+function SettingsScreen({ navigation }){
 
   //Functions
   function getVersionNumber(){
@@ -16,7 +16,7 @@ function SettingsScreen(){
 
   function openProfile(){
     //Placeholder, working on this on separate branch
-    console.log("Solution in progress")
+    navigation.navigate('My Profile');
   }
 
   function openLocationPerms(){
