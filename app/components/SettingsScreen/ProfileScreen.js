@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions, View, Text, TouchableOpacity, Modal } from 'rea
 import { TextInput } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
