@@ -20,16 +20,18 @@ const ProfileScreen = () => {
   });
 
   const [condition, setCondition] = useState(() => {
-    //Call database for disease, "Crohn's Disease" if bad response
-    return "Crohn's Disease";
+    //Call database for disease, "Ulcerative Colitis" if bad response
+    return "Ulcerative Colitis";
   })
 
   function cancelChanges(){
     //return back to the previous navigation without saving anything
+    console.log("Cancelling changes needs to be implemented")
   }
 
   function saveChanges(){
     //return back to the previous navigation and save changes
+    console.log("Saving changes needs to be implemented")
   }
 
   function openSheet(){
@@ -80,6 +82,31 @@ const ProfileScreen = () => {
                         onPress={openSheet}>
           <Text style={{fontSize: 16}}>{condition}</Text>
           <AntDesign name="down" size={20} color="#cccccc" style={{position: 'absolute', right: 0, bottom: 0 }}/>
+        </TouchableOpacity>
+      </View>
+
+      <View>
+        <TouchableOpacity style={{
+                          marginTop: 3*vw,
+                          marginLeft: 2.5*vw,
+                          width: '95%',
+                          padding: 15,
+                          backgroundColor: '#000000',
+                          borderRadius: 5,
+                          fontWeight: 'bold',}} 
+                          onPress={saveChanges}>
+          <Text style={{textAlign: 'center', color: '#ffffff', fontSize: 16}}>Save</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{
+                          marginTop: 3*vw,
+                          marginLeft: 2.5*vw,
+                          width: '95%',
+                          padding: 15,
+                          backgroundColor: '#efefef',
+                          borderRadius: 5,
+                          fontWeight: 'bold',}}
+                          onPress={cancelChanges}>
+          <Text style={{textAlign: 'center', color: '#000000', fontSize: 16}}>Cancel</Text>
         </TouchableOpacity>
       </View>
 
