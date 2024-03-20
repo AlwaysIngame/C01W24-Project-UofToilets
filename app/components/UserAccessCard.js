@@ -1,22 +1,16 @@
 //Import statements
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Dimensions } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
 
 //Component Functions and Constructor
-export default function UserAccessCard(){
-
-  function getDisease() {
-    //Database fetch disease on profile - for now, return colitis
-    return "Ulcerative Colitis";
-  };
-
-  function getName() {
-    //Database fetch Name on profile - for now, return Nothing
-    return "Kieran Hansen";
-  };
+export default function UserAccessCard(props){
+  const firstName = props.firstName;
+  const lastName = props.lastName;
+  const condition = props.condition;
 
   return (
       <View style={styles.cardBody}>
@@ -26,8 +20,8 @@ export default function UserAccessCard(){
         <View style={styles.cardText}>
           <Text style={styles.washroom}>Washroom</Text>
           <Text style={styles.accessCard}>Access Card</Text>
-          <Text style={styles.diseaseLabel}>{getDisease()}</Text>
-          <Text style={styles.nameLabel}>{getName()}</Text>
+          <Text style={styles.diseaseLabel}>{condition}</Text>
+          <Text style={styles.nameLabel}>{firstName} {lastName}</Text>
           <Text style={styles.helpText}>Please help. I require urgent access to a washroom.</Text>
         </View>
       </View>
