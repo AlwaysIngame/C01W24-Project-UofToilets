@@ -15,15 +15,19 @@ const AddWashroomForm = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Recommend a Washroom</Text>
-      <Text>Name:</Text>
+      <Text style={styles.subheading}>Name:</Text>
       <TextInput value={name} onChangeText={setName} style={styles.input} />
-      <Text>Location:</Text>
+      <Text style={styles.subheading}>Location:</Text>
       <TextInput value={location} onChangeText={setLocation} style={styles.input} />
-      <Text>Capacity:</Text>
+      <Text style={styles.subheading}>Capacity:</Text>
       <TextInput value={capacity} onChangeText={setCapacity} style={styles.input} keyboardType="numeric" />
-      <Text>Accessibility:</Text>
-      <TextInput value={accessibility} onChangeText={setAccessibility} style={styles.input} />
-      <Text>Availability:</Text>
+      <Text style={styles.subheading}>Accessibility:</Text>
+      <TextInput value={accessibility} onChangeText={setAccessibility} style={styles.input}>
+      <select>
+        <option value="Wheelchair">Wheelchair</option>
+      </select>
+      </TextInput>
+      <Text style={styles.subheading}>Availability:</Text>
       <TextInput value={availability} onChangeText={setAvailability} style={styles.input} />
       <Button title="Submit" onPress={handleSubmit} />
     </View>
@@ -45,6 +49,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     paddingLeft: 10,
+  },
+  subheading: {
+    fontSize: 15,
+    marginBottom: 10,
   },
 });
 
