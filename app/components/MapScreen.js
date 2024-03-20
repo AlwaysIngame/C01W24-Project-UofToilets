@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import * as Location from 'expo-location';
 import ScrollableList from './washroomList';
@@ -57,7 +57,9 @@ export function MapScreen({ washroomList }) {
           }}
           onRegionChangeComplete={() => { setRegionChanged(true) }}
           provider={PROVIDER_GOOGLE}
-        />
+        >
+          <Marker key="1" coordinate={{latitude: 43.78415937787995, longitude: -79.18757409699056}} title="UTSC" description='UT Shit Campus'/>
+        </ MapView>
       ) : (
         <Text>Loading...</Text>
       )}
