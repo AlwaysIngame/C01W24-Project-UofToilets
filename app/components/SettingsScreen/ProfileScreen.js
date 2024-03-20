@@ -7,7 +7,7 @@ import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/botto
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   //Functions
   const [firstName, setFirstName] = useState(() => {
     //Call database for first name, "" if bad response
@@ -39,7 +39,7 @@ const ProfileScreen = () => {
   }
 
   function closeSheet(){
-    bottomSheetRef.current.collapse()
+    bottomSheetRef.current.close()
   }
 
   const bottomSheetRef = useRef();
@@ -113,11 +113,18 @@ const ProfileScreen = () => {
       <BottomSheet
         ref={bottomSheetRef}
         index={-1}
-        snapPoints={['50%']}
+        snapPoints={['18%']}
         style={styles.sheetShadow}
         backdropComponent={renderBackdrop}>
         <BottomSheetView>
-          <Text>Awesome 🎉</Text>
+          <TouchableOpacity onPress={() => {setCondition("Crohn's Disease"); closeSheet();}}
+                            style={{padding: 12, marginLeft: 12}}>
+            <Text style={{fontSize: 16}}>Crohn's Disease</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {setCondition("Ulcerative Colitis"); closeSheet();}}
+                            style={{padding: 12, marginLeft: 12}}>
+            <Text style={{fontSize: 16}}>Ulcerative Colitis</Text>
+          </TouchableOpacity>
         </BottomSheetView>
       </BottomSheet>
     </View>
