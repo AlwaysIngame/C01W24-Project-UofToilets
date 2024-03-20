@@ -22,25 +22,26 @@ const ProfileScreen = ({ navigation }) => {
   const [condition, setCondition] = useState(() => {
     //Call database for disease, "Ulcerative Colitis" if bad response
     return "Ulcerative Colitis";
-  })
+  });
 
   function cancelChanges(){
-    //return back to the previous navigation without saving anything
-    console.log("Cancelling changes needs to be implemented")
-  }
+    navigation.goBack();
+  };
 
   function saveChanges(){
     //return back to the previous navigation and save changes
     console.log("Saving changes needs to be implemented")
-  }
+
+    navigation.goBack();
+  };
 
   function openSheet(){
-    bottomSheetRef.current.expand()
-  }
+    bottomSheetRef.current.expand();
+  };
 
   function closeSheet(){
-    bottomSheetRef.current.close()
-  }
+    bottomSheetRef.current.close();
+  };
 
   const bottomSheetRef = useRef();
 
