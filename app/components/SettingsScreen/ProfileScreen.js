@@ -41,8 +41,6 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   async function saveChanges(){
-    //return back to the previous navigation and save changes
-
     try {
       await AsyncStorage.setItem('User-First-Name', firstName);
     } catch (e) {
