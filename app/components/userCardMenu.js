@@ -64,8 +64,8 @@ const CardMenu = () => {
         style={styles.sheetShadow}
       >
         <View>
-          <Text style={styles.diseaseName}>Ulcerative Colitis</Text>  
-          <Text style={styles.diseaseDesc}>I live with colitis, a medical condition requiring urgent use of the washroom. Thank you for your understanding and cooperation.</Text>
+          <Text style={styles.diseaseName}>{condition}</Text>  
+          <Text style={styles.diseaseDesc}>I live with {condition}, a medical condition requiring urgent use of the washroom. Thank you for your understanding and cooperation.</Text>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.crohnsButtonStyle} onPress={openCrohnsLink}>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   buttonContainer: {
-    marginTop: 42*vw,
+    marginTop: 18*vh,
     width: '100%',
   },
   buttonTextStyle: {

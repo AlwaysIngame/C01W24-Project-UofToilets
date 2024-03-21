@@ -1,7 +1,6 @@
 //Import statements
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Dimensions } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
   diseaseLabel: {
     padding: 3,
     borderWidth: 1,
-    width: 28*vw,
+    width: 30*vw,
     color: 'white',
     borderColor: 'white',
     textAlign: 'center',
