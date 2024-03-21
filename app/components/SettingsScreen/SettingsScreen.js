@@ -9,10 +9,7 @@ const vw = Dimensions.get('window').width / 100;
 function SettingsScreen({ navigation }){
 
   //Functions
-  function getVersionNumber(){
-    //TODO: Database fetch for version number
-    return "1.0.0"; 
-  };
+  const versionNumber = "1.0.0";
 
   function openProfile(){
     //Placeholder, working on this on separate branch
@@ -68,11 +65,16 @@ function SettingsScreen({ navigation }){
           <Text style={styles.buttonFont}>Request Support</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
+        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 3*vh,}}
+                          onPress={openSupport}>
+          <Text style={styles.buttonFont}>Submit Feedback</Text>
+          <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
+        </TouchableOpacity>
       </View>
 
       <View style={{flexDirection: 'row', marginTop: 2*vh,}}>
         <Text style={styles.buttonFont}>Version</Text>  
-        <Text style={{position: 'absolute', right: 5, fontSize: 16,}}>{getVersionNumber()}</Text>
+        <Text style={{position: 'absolute', right: 5, fontSize: 16,}}>{versionNumber}</Text>
       </View>
       
     </View>
