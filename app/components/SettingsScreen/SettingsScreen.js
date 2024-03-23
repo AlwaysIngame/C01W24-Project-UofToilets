@@ -28,6 +28,10 @@ function SettingsScreen({ navigation }){
     Linking.openURL('mailto:gohere@crohnsandcolitis.ca')
   }
 
+  function openReview(){
+    Linking.openURL('https://play.google.com/store/apps/details?id=com.GoHere.GoHere').catch(err => console.error("Couldn't load page", err));
+  }
+
   //Render component
   return (
     <View style={styles.container}>
@@ -66,7 +70,7 @@ function SettingsScreen({ navigation }){
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
         <TouchableOpacity style={{flexDirection: 'row', marginBottom: 3*vh,}}
-                          onPress={openSupport}>
+                          onPress={openReview}>
           <Text style={styles.buttonFont}>Submit Feedback</Text>
           <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
         </TouchableOpacity>
