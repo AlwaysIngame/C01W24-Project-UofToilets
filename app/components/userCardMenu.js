@@ -1,8 +1,10 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Modal, Button, Dimensions, Linking } from 'react-native';
 import BottomSheet, { TouchableOpacity } from '@gorhom/bottom-sheet';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import UserAccessCard from './UserAccessCard';
+import { useIsFocused } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
@@ -11,15 +13,33 @@ const CardMenu = () => {
   //Snap point constants
   const snapPoints = (['25%', '60%']);
   
-  //TODO: Update function to get disease from database
-  const DName = () => (
-    <Text style={styles.diseaseName}>Ulcerative Colitis</Text>
-  );
+  const isFocused = useIsFocused();
   
-  //TODO: Update function to get description from the database
-  const DDesc = () => (
-    <Text style={styles.diseaseDesc}>I live with colitis, a medical condition requiring urgent use of the washroom. Thank you for your understanding and cooperation.</Text>
-  );
+  //State variables
+  const [firstName, setFirstName] = useState(undefined);
+  const [lastName, setLastName] = useState(undefined);
+  const [condition, setCondition] = useState(undefined);
+
+  //Functions
+  useEffect(() => {
+    async function getEverything() {
+      try {
+        const fn = await AsyncStorage.getItem('User-First-Name')
+        const ln = await AsyncStorage.getItem('User-Last-Name')
+        const c = await AsyncStorage.getItem('User-Condition')
+        setFirstName(fn)
+        setLastName(ln)
+        setCondition(c)
+      } catch (e) {
+        console.log("Issue reading condition");
+        setFirstName("")
+        setLastName("")
+        setCondition("")
+      }
+    }
+
+    getEverything()
+  }, [isFocused]);
 
   function openCrohnsLink() {
       Linking.openURL('https://crohnsandcolitis.ca/About-Us').catch(err => console.error("Couldn't load page", err));
@@ -37,15 +57,15 @@ const CardMenu = () => {
                     marginTop: 4*vh,
                     marginBottom: 2*vh,}}>
                       Access Card</Text>
-      <UserAccessCard/>
+      <UserAccessCard firstName={firstName} lastName={lastName} condition={condition}/>
       <BottomSheet
         index={0}
         snapPoints={snapPoints}
         style={styles.sheetShadow}
       >
         <View>
-          <DName/>
-          <DDesc/>
+          <Text style={styles.diseaseName}>{condition}</Text>  
+          <Text style={styles.diseaseDesc}>I live with {condition}, a medical condition requiring urgent use of the washroom. Thank you for your understanding and cooperation.</Text>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.crohnsButtonStyle} onPress={openCrohnsLink}>
@@ -118,7 +138,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   buttonContainer: {
-    marginTop: 42*vw,
+    marginTop: 18*vh,
     width: '100%',
   },
   buttonTextStyle: {

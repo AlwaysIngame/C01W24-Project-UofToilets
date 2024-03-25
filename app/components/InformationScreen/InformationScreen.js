@@ -11,7 +11,7 @@ const vw = Dimensions.get('window').width / 100;
 
 const InformationScreen = () => {
 
-  const snapPoints = (['40%', '80%']);
+  const snapPoints = (['40%', '90%']);
 
   function openDonationLink() {
     Linking.openURL('https://crohnsandcolitis.donorportal.ca/Donation/Donation.aspx').catch(err => console.error("Couldn't load page", err));

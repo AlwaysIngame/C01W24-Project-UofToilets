@@ -1,36 +1,63 @@
-import React, { useState, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { StyleSheet, Dimensions, View, Text, TouchableOpacity, Modal } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
 
 const ProfileScreen = ({ navigation }) => {
+
+  //State variables
+  const [firstName, setFirstName] = useState(undefined);
+  const [lastName, setLastName] = useState(undefined);
+  const [condition, setCondition] = useState(undefined);
+
   //Functions
-  const [firstName, setFirstName] = useState(() => {
-    //Call database for first name, "" if bad response
-    return "";
-  });
+  useEffect(() => {
+    async function getEverything() {
+      try {
+        const fn = await AsyncStorage.getItem('User-First-Name')
+        const ln = await AsyncStorage.getItem('User-Last-Name')
+        const c = await AsyncStorage.getItem('User-Condition')
+        setFirstName(fn)
+        setLastName(ln)
+        setCondition(c)
+      } catch (e) {
+        console.log("Issue reading condition");
+        setFirstName("")
+        setLastName("")
+        setCondition("")
+      }
+    }
 
-  const [lastName, setLastName] = useState(() => {
-    //Call database for last name, "" if bad response
-    return "";
-  });
-
-  const [condition, setCondition] = useState(() => {
-    //Call database for disease, "Ulcerative Colitis" if bad response
-    return "Ulcerative Colitis";
-  });
+    getEverything()
+  }, []);
 
   function cancelChanges(){
     navigation.goBack();
   };
 
-  function saveChanges(){
-    //return back to the previous navigation and save changes
-    console.log("Saving changes needs to be implemented")
+  async function saveChanges(){
+    try {
+      await AsyncStorage.setItem('User-First-Name', firstName);
+    } catch (e) {
+      console.log("Couldn't save first name");
+    }
+
+    try {
+      await AsyncStorage.setItem('User-Last-Name', lastName);
+    } catch (e) {
+      console.log("Couldn't save last name");
+    }
+
+    try {
+      await AsyncStorage.setItem('User-Condition', condition);
+    } catch (e) {
+      console.log("Couldn't save condition");
+    }
 
     navigation.goBack();
   };
