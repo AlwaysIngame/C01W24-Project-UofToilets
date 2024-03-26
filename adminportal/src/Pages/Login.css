@@ -66,3 +66,8 @@
   width: 80%;
   margin-left: 10%;
 }
+
+.loginButton:hover {
+  background-color: rgba(236, 82, 85, 0.8);
+  cursor: pointer;
+}

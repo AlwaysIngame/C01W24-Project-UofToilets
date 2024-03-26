@@ -17,7 +17,7 @@ function LoginPage(){
     if (formJson.username === "" || formJson.password === "") {
       setLoginError(true);
       setErrorMessage("*Username and Password cannot be blank")
-    } //Incorrect Username or password
+    } //*Incorrect Username or password
   };
 
 
