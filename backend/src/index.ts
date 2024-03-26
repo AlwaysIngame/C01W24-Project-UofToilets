@@ -173,7 +173,7 @@ app.post("/loginAdmin", express.json(), async (req, res) => {
         if (!username || !password) {
         return res
             .status(400)
-            .json({ error: "Missing username or password." });
+            .json({ error: "*Missing username or password" });
         }
     
         // Find username in database
@@ -187,7 +187,7 @@ app.post("/loginAdmin", express.json(), async (req, res) => {
             // Send JSON Web Token to valid user
             res.json({ response: "Admin logged in succesfully.", token: token }); //Implicitly status 200
         } else {
-        res.status(401).json({ error: "Incorrect username or password." });
+        res.status(401).json({ error: "*Incorrect Username or Password" });
         }
     } catch (error: any) {
         res.status(500).json({ error: error.message });

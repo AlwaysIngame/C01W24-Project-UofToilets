@@ -1,23 +1,60 @@
 //Import statements
 import React, { useState, } from 'react';
 import './Login.css';
+import { SERVER_URL } from '../constants';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage(){
 
   const [loginError, setLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  let navigate = useNavigate();
 
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault();
-
+    
     const form = e.target;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
 
-    if (formJson.username === "" || formJson.password === "") {
-      setLoginError(true);
-      setErrorMessage("*Username and Password cannot be blank")
-    } //*Incorrect Username or password
+    //if (formJson.username === "" || formJson.password === "") {
+    //  setLoginError(true);
+    // setErrorMessage("*Username and Password cannot be blank")
+    //} //*Incorrect Username or Password
+
+    /* -- Call and validate login -- Uncomment when confirmed working
+    try {
+      const loginRes = await fetch(`${SERVER_URL}/loginAdmin`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username: formJson.username,
+            password: formJson.password,
+        })
+      })
+    
+      const loginBody = await loginRes.json();
+
+      if (loginRes.ok) {
+        setErrorMessage("");
+        localStorage.setItem("accessToken", loginBody.token)
+        //props.navigation.navigate("Tabs");
+        navigate('/admin/dashboard');
+
+      } else {
+        setErrorMessage(loginBody.error);
+      }
+
+    } catch (error) {
+      setErrorMessage("Login failure: " + error);
+    }
+    */
+    
+    //For now, we navigate, remove once validation is working
+    navigate('/admin/dashboard')
+
   };
 
 
