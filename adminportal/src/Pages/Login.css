@@ -1,0 +1,68 @@
+/* Login.css */
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ec5255;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginContainer {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 250px;
+  box-shadow: -6px 5px 15px 5px rgba(0,0,0,0.5);
+}
+
+.pageTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: #ec5255;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.textInput {
+  border: none;
+  border-bottom: 2px solid #BFBFBF;
+  padding: 5px;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.errorMsg {
+  color: #ec5255;
+  font-size: 12px;
+  margin-top: 0;
+  margin-left: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginButton {
+  padding: 10px;
+  border-radius: 20px;
+  border-width: 0px;
+  background-color: #ec5255;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 80%;
+  margin-left: 10%;
+}
