@@ -34,9 +34,9 @@ const AddWashroomForm = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Recommend a Washroom</Text>
-      <Text style={styles.subheading}>Name:</Text>
+      <Text style={styles.subheading}>Washroom Name:</Text>
       <TextInput value={name} onChangeText={setName} style={styles.input} />
-      <Text style={styles.subheading}>Location:</Text>
+      <Text style={styles.subheading}>Location of Washroom:</Text>
       <TextInput value={location} onChangeText={setLocation} style={styles.input} />
       <Text style={styles.subheading}>Capacity:</Text>
       <TextInput value={capacity} onChangeText={setCapacity} style={styles.input} keyboardType="numeric" />
