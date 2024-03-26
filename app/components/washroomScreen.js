@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { Checkbox } from 'expo-checkbox';
 
 const AddWashroomForm = () => {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [capacity, setCapacity] = useState('');
-  const [accessibility, setAccessibility] = useState('');
+  const [accessibility, setAccessibility] = useState([]);
   const [availability, setAvailability] = useState('');
-  const [showOptions, setShowOptions] = useState(false); // State to control visibility of options
 
   const handleSubmit = () => {
     console.log('Submitted:', { name, location, capacity, accessibility, availability });
   };
 
   const accessibilityOptions = [
-    'Wheelchair',
-    'Elderly',
-    'Visual Impairment',
-    'Hearing Impairment',
-    'Mobility Impairment',
-    'Cognitive Impairment',
-    'Other',
+    { label: 'Wheelchair', value: 'Wheelchair' },
+    { label: 'Elderly', value: 'Elderly' },
+    { label: 'Visual Impairment', value: 'Visual Impairment' },
+    { label: 'Hearing Impairment', value: 'Hearing Impairment' },
+    { label: 'Mobility Impairment', value: 'Mobility Impairment' },
+    { label: 'Cognitive Impairment', value: 'Cognitive Impairment' },
+    { label: 'Other', value: 'Other' },
   ];
 
-  const handlePickerPress = () => {
-    setShowOptions(true); // Show options when picker is pressed
+  const handleCheckboxChange = (option) => {
+    if (accessibility.includes(option)) {
+      setAccessibility(accessibility.filter(item => item !== option));
+    } else {
+      setAccessibility([...accessibility, option]);
+    }
   };
 
   return (
@@ -40,15 +43,15 @@ const AddWashroomForm = () => {
       <Text style={styles.subheading}>Availability:</Text>
       <TextInput value={availability} onChangeText={setAvailability} style={styles.input} />
       <Text style={styles.subheading}>Accessibility:</Text>
-      <DropDownPicker
-        open={showOptions}
-        value={accessibility}
-        items={accessibilityOptions.map(option => ({ label: option, value: option }))}
-        setOpen={setShowOptions}
-        setValue={setAccessibility}
-        style={styles.input}
-        onPress={handlePickerPress} // Handle picker press event
-      />
+      {accessibilityOptions.map(option => (
+        <View key={option.value} style={styles.checkboxContainer}>
+          <Checkbox
+            value={accessibility.includes(option.value)}
+            onValueChange={() => handleCheckboxChange(option.value)}
+          />
+          <Text style={styles.checkboxLabel}>{option.label}</Text>
+        </View>
+      ))}
       <Button title="Submit" onPress={handleSubmit} />
     </View>
   );
@@ -73,6 +76,14 @@ const styles = StyleSheet.create({
   subheading: {
     fontSize: 15,
     marginBottom: 10,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  checkboxLabel: {
+    marginLeft: 8,
   },
 });
 
