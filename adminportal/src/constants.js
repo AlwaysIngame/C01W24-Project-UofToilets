@@ -1,0 +1,1 @@
+export const SERVER_URL = "http://cooldrop.fr.to:4000"

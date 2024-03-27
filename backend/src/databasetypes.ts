@@ -29,4 +29,5 @@ export interface WashroomLocationReqPayload { // getWashroomByLocation
 export enum COLLECTIONS {
     Users = "users",
     Washrooms = "washrooms",
+    Admins = "admins",
 }
