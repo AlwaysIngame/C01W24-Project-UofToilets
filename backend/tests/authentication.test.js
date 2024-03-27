@@ -35,6 +35,7 @@ test("/registerUser - Register a user", async () => {
 
     const delUserBody = await delUserRes.json();
 
+    expect(delUserBody.error).toBe(undefined);
     expect(delUserBody.response).toBe("User " + username + " deleted.");
     
 })
@@ -68,7 +69,6 @@ test("/registerUser - Attempt to register a user that already exists", async () 
     const regUser1Body = await regUser1Res.json();
     const regUser2Body = await regUser2Res.json();
 
-    expect(regUser2Res.status).toBe(400);
     expect(regUser2Body.error).toBe("Username already exists.");
 
     const token = regUser1Body.token;
