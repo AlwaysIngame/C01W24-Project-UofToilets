@@ -6,14 +6,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CardMenu from './userCardMenu'
 import ScrollableList from './washroomList';
 import { MapScreen } from './MapScreen';
-<<<<<<< HEAD
 import AddWashroomForm from './washroomScreen';
-=======
 import InformationScreen from './InformationScreen/InformationScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MasterSettingsScreen from './SettingsScreen/SettingsMaster';
->>>>>>> origin
 
 export default function TabNavigation(props) {
 
@@ -40,18 +37,12 @@ export default function TabNavigation(props) {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-<<<<<<< HEAD
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={MapScreen} />
-      <Tab.Screen name="Card" component={UserAccessCard}/>
-      <Tab.Screen name="Washrooms" component={AddWashroomForm}/>
-=======
     <Tab.Navigator screenOptions={{}}>
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
       <Tab.Screen name="Card" component={CardMenu}/>
       <Tab.Screen name="Info" component={InformationScreen}/>
       <Tab.Screen name="Settings" children={(props) => <MasterSettingsScreen {...props} userType="user"/>}/>
->>>>>>> origin
+      <Tab.Screen name="Washrooms" component={AddWashroomForm}/>
     </Tab.Navigator>
     </GestureHandlerRootView>
   );
