@@ -1,9 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Settings, StyleSheet, Text, View } from 'react-native';
 import LoginScreen from './components/LoginScreen';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import TabNavigation from './components/navbar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignupScreen from './components/SignupScreen';
+import WelcomeScreen from './components/WelcomeScreen';
+import BusinessOwnerTabs from './components/businessOwner/BusinessOwnerNav';
+import SettingsScreen from './components/SettingsScreen/SettingsScreen';
 
 export default function App() {
 
@@ -11,10 +14,14 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login' screenOptions={{animationEnabled: true, navigationBarColor: "#FFFFFF"}}>
+      <Stack.Navigator initialRouteName='Tabs' screenOptions={{animationEnabled: true, navigationBarColor: "#FFFFFF"}}>
         <Stack.Screen name="Tabs" component={TabNavigation} options={{headerShown: false}}/>
+        <Stack.Screen name="BOTabs" component={BusinessOwnerTabs} options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Settings" component={SettingsScreen}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
