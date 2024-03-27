@@ -1,11 +1,12 @@
 import React, { useState, } from 'react';
 import './Dashboard.css';
+import Sidebar from '../Components/Sidebar';
 
 const Dashboard = () => {
 
   return(
     <div>
-      This is the dashboard.
+      <Sidebar/>
     </div>
   );
 }
