@@ -10,10 +10,10 @@ function HorizontalButton({ title, onPress }){
   //Render component
   return (
     <View>
-        <TouchableOpacity style={styles.hbutton}
+        <TouchableOpacity style={styles.HBtn}
                             onPress={onPress}>
             <Text style={styles.buttonFont}>{title}</Text>
-        <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
+        <AntDesign name="right" size={20} color="#cccccc" style={styles.HBtnIcon}/>
         </TouchableOpacity>
     </View>
   );

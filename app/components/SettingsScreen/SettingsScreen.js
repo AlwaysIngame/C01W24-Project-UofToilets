@@ -5,6 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '../styles';
 import HorizontalButton from '../ui/HorizontalButton';
+import UIButton from '../ui/UIButton';
 
 function SettingsScreen({ navigation, userType }){
 
@@ -64,7 +65,7 @@ function SettingsScreen({ navigation, userType }){
       <HorizontalButton title='Submit Feedback' onPress={openReview}/>
 
 
-      <View style={styles.hbutton}>
+      <View style={styles.HBtn}>
         <Text style={styles.buttonFont}>Version</Text>  
         <Text style={{fontSize: 16,}}>{versionNumber}</Text>
       </View>
