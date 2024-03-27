@@ -145,7 +145,7 @@ app.post("/registerAdmin", express.json(), async (req, res) => {
 
         console.log("Register");
 
-        const adminCollection = db.collection(COLLECTIONS.admins);
+        const adminCollection = db.collection(COLLECTIONS.Admins);
         const existingAdmin = await adminCollection.findOne({ username });
         if (existingAdmin) {
             return res.status(400).json({ error: "Username already exists."})
@@ -176,7 +176,7 @@ app.post("/loginAdmin", express.json(), async (req, res) => {
         }
     
         // Find username in database
-        const adminCollection = db.collection(COLLECTIONS.admins);
+        const adminCollection = db.collection(COLLECTIONS.Admins);
         const admin = await adminCollection.findOne({ username });
     
         // Validate user against hashed password in database
@@ -208,7 +208,7 @@ app.delete("/deleteAdmin", express.json(), async (req, res) => {
         return res.status(400).json({ error: "Missing username or password." });
         }
 
-        const adminCollection = db.collection(COLLECTIONS.admins);
+        const adminCollection = db.collection(COLLECTIONS.Admins);
         const admin = await adminCollection.findOne({ username });
     
         if (!(admin && (await bcrypt.compare(password, admin.password)))) {
