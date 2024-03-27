@@ -7,6 +7,9 @@ const Dashboard = () => {
   return(
     <div>
       <Sidebar/>
+      <div className='dashboard'>  
+        This is the dashboard page.
+      </div>
     </div>
   );
 }

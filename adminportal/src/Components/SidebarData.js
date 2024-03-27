@@ -7,12 +7,12 @@ export const SidebarData = [
     title: 'Dashboard',
     path: '/admin/dashboard',
     icon: <MdSpaceDashboard/>,
-    cName: 'nav-text'
+    cName: 'side-text',
   },
   {
     title: 'Requests',
     path: '/admin/requests',
     icon: <FaToilet />,
-    cName: 'nav-text'
+    cName: 'side-text',
   },
 ]

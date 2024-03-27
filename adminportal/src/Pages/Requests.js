@@ -7,8 +7,11 @@ const Requests = () => {
   return(
     <div>
       <Sidebar/>
-      This is the requests page.
+      <div className='requests'>  
+        This is the requests page.
+      </div>
     </div>
+    
   );
 }
 
