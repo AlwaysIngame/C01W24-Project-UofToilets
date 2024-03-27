@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { SERVER_URL } from '../src/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { styles } from './styles';
+import UIButton from './ui/UIButton';
 
 
 
@@ -45,23 +47,26 @@ export default function LoginScreen(props) {
 
 
   return (
-    <View style={styles.container}>
-      <Text>GoHere Logo</Text>
-      <TextInput placeholder='Username' onChangeText={setUsername}></TextInput>
-      <TextInput placeholder='Password' onChangeText={setPassword}></TextInput>
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex: 1}}>
+    <View style={styles.centeredScreenContainer}>
+      <Image style={[styles.iconImage, {alignSelf: 'center', height: 200, width: 100}]} source={require('../assets/CCC-GOHERE-CS5-1.jpg')}/>
+      <Text style={[styles.sectionTitle, {textAlign: 'center'}]}>BUSINESS LOGIN</Text>
+      <TextInput placeholder='Business Username' onChangeText={setUsername}></TextInput>
+      <TextInput secureTextEntry={true} placeholder='Password' onChangeText={setPassword}></TextInput>
       {errorMessage !== "" ? <Text style={{color: "#FF0000"}}>{errorMessage}</Text> : null}
-      <Button title='Login' onPress={() => login(username, password)}/>
+      <UIButton title='Login' onPress={() => login(username, password)} height={50} emphasis={true}/>
       <Text>Dont have an account?</Text>
-      <Button title='Sign up' onPress={() => props.navigation.navigate("Signup")}/>
+      <UIButton title='Sign Up' onPress={() => props.navigation.navigate("Signup")} height={50}/>
     </View>
+    </KeyboardAvoidingView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
