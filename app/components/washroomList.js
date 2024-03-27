@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, StyleSheet, View, TextInput } from 'react-native';
+import { ScrollView, Text, StyleSheet, View } from 'react-native';
 import * as Location from 'expo-location';
+import SearchBar from './SearchBar'; 
 
 const fetchWashrooms = () => {
   // simulate fetching data with coordinates
@@ -20,10 +21,10 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
   return Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2));
 };
 
-const ScrollableList = (props) => {
+const ScrollableList = () => {
   const [items, setItems] = useState([]);
-  const [search, setSearch] = useState('');
   const [userLocation, setUserLocation] = useState(null);
+  const [filteredItems, setFilteredItems] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -44,19 +45,13 @@ const ScrollableList = (props) => {
       })).sort((a, b) => a.distance - b.distance);
 
       setItems(sortedData);
+      setFilteredItems(sortedData); // Initialize filteredItems with all items
     });
   }, [userLocation]);
-  const filteredItems = items.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.search}
-        value={search}
-        onChangeText={setSearch}
-        placeholder="Search for a washroom..."
-        onFocus={props.onSearchPress}
-      />
+      <SearchBar items={items} setFilteredItems={setFilteredItems} />
       <ScrollView style={{ flex: 1 }}>
         {filteredItems.length > 0 ? (
           filteredItems.map((item, index) => (
@@ -92,13 +87,6 @@ const styles = StyleSheet.create({
     borderColor: '#000', 
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  search: {
-    height: 40,
-    borderColor: '#000',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingLeft: 10,
   },
   noItems: {
     textAlign: 'center',
