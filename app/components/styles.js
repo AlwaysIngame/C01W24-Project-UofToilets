@@ -1,11 +1,12 @@
-import { StyleSheet, Dimensions, View, Text } from 'react-native';
+import { StyleSheet, Dimensions, View, Text, StatusBar } from 'react-native';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
 
-const COLOR_PRIMARY = '#ec5255';
-const COLOR_SECONDARY = '#dddddd';
-const BORDER_COLOR = '#cccccc';
+// export const COLOR_PRIMARY = '#ec5255';
+export const COLOR_PRIMARY = '#ec3838';
+export const COLOR_SECONDARY = '#dddddd';
+export const BORDER_COLOR = '#cccccc';
 
 export const styles = StyleSheet.create({
 
@@ -34,6 +35,7 @@ export const styles = StyleSheet.create({
   UIBtnText: {
     textAlign: 'center',
     fontWeight: 'bold',
+    fontSize: 14,
   },
 
   UIBtnTextEmph: {
@@ -44,7 +46,6 @@ export const styles = StyleSheet.create({
 
   HBtn: {
     width: "100%",
-    height: 'auto',
     padding: 12,
     flexDirection: 'row',
     display: 'flex',
@@ -77,5 +78,53 @@ export const styles = StyleSheet.create({
   buttonFont: {
     fontSize: 16,
   },  
+  centeredScreenContainer: {
+    marginTop: StatusBar.currentHeight,
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+    gap: 12,
+    padding: 24,
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  sheetShadow: {
+    backgroundColor: 'rgba(255, 255, 255,0)',  // <==== HERE
+    borderRadius: 24,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 24,
+    elevation: 10,
+  },
+  crohnsButtonStyle: {
+    marginLeft: 2.5*vw,
+    width: '95%',
+    padding: 15,
+    backgroundColor: '#efefef',
+    borderRadius: 5,
+  },
+  goHereButtonStyle: {
+    marginTop: 3*vw,
+    marginLeft: 2.5*vw,
+    width: '95%',
+    padding: 15,
+    backgroundColor: '#000000',
+    borderRadius: 5,
+    fontWeight: 'bold',
+  },
+  buttonContainer: {
+    gap: 12,
+    width: '100%',
+  },
+  buttonTextStyle: {
+    textAlign: 'center'
+  }
 });
   

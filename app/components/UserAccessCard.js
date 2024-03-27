@@ -1,6 +1,7 @@
 //Import statements
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Dimensions } from 'react-native';
+import { COLOR_PRIMARY } from './styles';
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
@@ -33,11 +34,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     overflow: 'hidden',
-    width: 88*vw,
-    maxWidth: 1035,
-    maxHeight: 540,
-    height: 46*vw,
-    borderRadius: 10,
+    width: "100%",
+    height: 200,
+    borderRadius: 12,
     elevation: 3,
   },
   cardIcon: {
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
   cardText: {
     width: '70%',
     height: '100%',
-    backgroundColor: '#ec5255',
+    backgroundColor: COLOR_PRIMARY,
   },
   iconImage: {
     height: '80%',

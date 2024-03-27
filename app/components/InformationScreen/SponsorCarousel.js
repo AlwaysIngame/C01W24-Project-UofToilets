@@ -18,7 +18,6 @@ const SponsorCarousel = () => {
     <Carousel
         loop={false}
         width={width}
-        height={width / 2}
         autoPlay={false}
         data={[...new Array(4).keys()]}
         scrollAnimationDuration={1000}
@@ -38,14 +37,14 @@ const styles = StyleSheet.create({
   carouselContainer: {
     display: 'flex',
     justifyContent: 'center',
-    width: 90*vw,
-    height: 50*vw,
+    width: 'auto',
+    height: 175,
     margin: 'auto',
     borderWidth: 3,
     borderColor: '#efefef',
     borderRadius: 20,
     overflow: 'hidden',
-    marginLeft: 5*vw,
+    margin: 12,
     backgroundColor: '#ffffff',
   },
   carouselImage: {
