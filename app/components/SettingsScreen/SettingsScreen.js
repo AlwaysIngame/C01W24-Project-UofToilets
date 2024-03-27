@@ -2,11 +2,13 @@ import { StyleSheet, Dimensions, View, Text } from 'react-native';
 import * as Linking from 'expo-linking';
 import { TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const vh = Dimensions.get('window').height / 100;
 const vw = Dimensions.get('window').width / 100;
 
-function SettingsScreen({ navigation }){
+function SettingsScreen({ navigation, userType }){
 
   //Functions
   function getVersionNumber(){
@@ -16,7 +18,12 @@ function SettingsScreen({ navigation }){
 
   function openProfile(){
     //Placeholder, working on this on separate branch
-    navigation.navigate('My Profile');
+    console.log(userType)
+    if (userType === "businessOwner") {
+      navigation.navigate('Business Profile');
+    } else {
+      navigation.navigate('My Profile');
+    }
   }
 
   function openLocationPerms(){
@@ -31,16 +38,30 @@ function SettingsScreen({ navigation }){
     Linking.openURL('mailto:gohere@crohnsandcolitis.ca')
   }
 
+  const logoutAction = () => {
+    AsyncStorage.setItem("session_token", "");
+    AsyncStorage.setItem("logged_in", "false");
+    navigation.replace("Welcome");
+  }
+
   //Render component
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Settings</Text>
+      {/* <Text style={styles.title}>Settings</Text> */}
 
-      <TouchableOpacity style={{flexDirection: 'row', marginTop: 4*vh, marginBottom: 3*vh,}}
+      <Text style={styles.sectionTitle}>ACCOUNT</Text>
+      <TouchableOpacity style={{flexDirection: 'row', marginBottom: 3*vh,}}
                         onPress={openProfile}>
         <Text style={styles.buttonFont}>My Profile</Text>
         <AntDesign name="right" size={20} color="#cccccc" style={styles.iconStyle}/>
       </TouchableOpacity>
+
+      <View>
+        <TouchableOpacity style={{flexDirection: 'row', marginBottom: 3*vh,}}
+                          onPress={logoutAction}>
+          <Text style={styles.buttonFont}>Logout</Text>
+        </TouchableOpacity>
+      </View>
 
       <View>
         <Text style={styles.sectionTitle}>APP SETTINGS</Text>
@@ -70,6 +91,7 @@ function SettingsScreen({ navigation }){
         </TouchableOpacity>
       </View>
 
+
       <View style={{flexDirection: 'row', marginTop: 2*vh,}}>
         <Text style={styles.buttonFont}>Version</Text>  
         <Text style={{position: 'absolute', right: 5, fontSize: 16,}}>{getVersionNumber()}</Text>
@@ -84,7 +106,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 24,
     paddingRight: 24,
-    paddingTop: 24,
+    paddingTop: 12,
     backgroundColor: 'white',
   },
   iconStyle: {

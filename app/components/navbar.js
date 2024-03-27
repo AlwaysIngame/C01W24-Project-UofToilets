@@ -36,11 +36,11 @@ export default function TabNavigation(props) {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{}}>
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
-      <Tab.Screen name="Card" component={CardMenu} options={{headerShown: false}}/>
-      <Tab.Screen name="Info" component={InformationScreen} options={{headerShown: false}}/>
-      <Tab.Screen name="Settings" component={MasterSettingsScreen} options={{headerShown: false}}/>
+      <Tab.Screen name="Card" component={CardMenu}/>
+      <Tab.Screen name="Info" component={InformationScreen}/>
+      <Tab.Screen name="Settings" children={(props) => <MasterSettingsScreen {...props} userType="user"/>}/>
     </Tab.Navigator>
     </GestureHandlerRootView>
   );

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Settings, StyleSheet, Text, View } from 'react-native';
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,7 +10,8 @@ import InformationScreen from '../InformationScreen/InformationScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyWashrooms from './MyWashrooms';
-import BusinessOwnerAccount from './BusinessOwnerAccount';
+import SettingsScreen from '../SettingsScreen/SettingsScreen';
+import MasterSettingsScreen from '../SettingsScreen/SettingsMaster';
 
 export default function BusinessOwnerTabs(props) {
 
@@ -21,7 +22,7 @@ export default function BusinessOwnerTabs(props) {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
       <Tab.Screen name="My Washrooms" component={MyWashrooms}/>
-      <Tab.Screen name="Account" component={BusinessOwnerAccount} navigation={props.navigation}/>
+      <Tab.Screen name="Settings" children={() => <MasterSettingsScreen userType="businessOwner" navigation={props.navigation}/>}/>
     </Tab.Navigator>
     </GestureHandlerRootView>
   );
