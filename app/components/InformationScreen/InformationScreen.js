@@ -38,9 +38,9 @@ const InformationScreen = () => {
 
   return(
     <GestureHandlerRootView style={{flex: 1, backgroundColor: '#ffffff'}}>
-      <View style={{flex: 1, marginTop: 6*vh,}}>
+      <View style={{flex: 1}}>
         <InfoBlurb/>
-        <Text style={{marginLeft: 24, marginBottom: 2*vh, marginTop: 4*vh, fontWeight: 'bold', fontSize: 22}}>Our Partners</Text>
+        <Text style={{marginLeft: 24, fontWeight: 'bold', fontSize: 22}}>Our Partners</Text>
         <SponsorCarousel/>
         <MenuRender/>
       </View>
