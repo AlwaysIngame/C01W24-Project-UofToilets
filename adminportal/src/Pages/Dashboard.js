@@ -35,7 +35,7 @@ const Dashboard = () => {
     backgroundColor: '#eee',
     borderCollapse: 'collapse',
     fontSize: '0.4em', 
-    width: '80%', 
+    width: '70%', 
     margin: '0 auto', 
     marginTop:'20px'
   };
@@ -44,9 +44,9 @@ const Dashboard = () => {
     <div>
       <Sidebar />
       <div className='dashboard'>
-        <div style={{ display: 'flex', width: '100%', height: '100%', flexDirection: 'column', alignItems: '', fontSize: '0.8em', marginTop:'100px'}}>
-          <h3 style={{ width: '80%', margin: '0 auto', padding: '0.5em', fontSize: '0.5em', textAlign: 'center' }}>Active Washrooms</h3>
-          <input style={{ width: '80%', margin: '0 auto', padding: '0.5em', fontSize: '0.4em' }}
+        <div style={{ display: 'flex', width: '100%', height: '100%', flexDirection: 'column', alignItems: '', fontSize: '0.8em', marginTop:'70px'}}>
+          <h3 style={{ width: '70%', margin: '0 auto', padding: '0.5em', fontSize: '0.6em', textAlign: 'center' }}>Active Washrooms</h3>
+          <input style={{ width: '70%', margin: '0 auto', padding: '0.5em', fontSize: '0.4em' }}
             type='text'
             placeholder='Search...'
             value={searchTerm}
