@@ -10,7 +10,7 @@ import { Circle } from 'react-native-maps';
 import CircleButton from '../ui/CircleButton';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function WashroomInfoView({ name, lat, lon, website, phone, address, hours, bookmarked, navigation }) {
+export default function WashroomInfoView({ name, lat, lon, website, phone, address, hours, bookmarked, navigation, onClose }) {
 
   const [location, setLocation] = useState({coords: {latitude: 0, longitude: 0}});
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -27,7 +27,7 @@ export default function WashroomInfoView({ name, lat, lon, website, phone, addre
   }
 
   const closeView = () => {
-    // Close the view
+    onClose();
   }
   
   const toggleBookmark = () => {

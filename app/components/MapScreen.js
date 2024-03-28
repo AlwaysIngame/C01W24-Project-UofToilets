@@ -14,6 +14,17 @@ export function MapScreen({ washroomList }) {
   const sheetRef = useRef(null);
   const snapPoints = ['14%', '33%', '60%'];
 
+  const [sheetScreen, setSheetScreen] = useState('store');
+  
+  const [focusedWashroom, setFocusedWashroom] = useState({
+    name: "Bob's Store",
+    lat: 43.78415937787995,
+    lon: -79.18757409699056,
+    website: "www.bobsstore.com",
+    phone: "416-123-4567",
+    address: "1234 Bob Street",
+  });
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -77,16 +88,12 @@ export function MapScreen({ washroomList }) {
         //onChange={handleSheetChange}
       >
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          {/* <ScrollableList onSearchPress={handleSearchPress} /> */}
-          <WashroomInfoView 
-            name={"Bob's Store"}
-            lat={43.78415937787995}
-            lon={-79.18757409699056}
-            website={"www.bobsstore.com"}
-            phone={"416-123-4567"}
-            address={"1234 Bob Street"}
+          {sheetScreen == "store" ? <WashroomInfoView {... focusedWashroom} onClose={() => setSheetScreen('list')}
+          ></WashroomInfoView> : 
+          <ScrollableList washroomList={washroomList}>
+
+          </ScrollableList>}
           
-          ></WashroomInfoView>
         </BottomSheetScrollView>
       </BottomSheet>
     </View>
