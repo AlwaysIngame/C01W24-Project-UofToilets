@@ -94,7 +94,7 @@ export function MapScreen() {
       let washrooms = getWashroomBody.response;
       console.log(washrooms);
       for (let i = 0; i < washrooms.length; i++) {
-        washrooms[i].distance = haversineDistance(washrooms[i], location);
+        washrooms[i].distance = haversineDistance(washrooms[i], location)/1000;
       }
       washrooms.sort((a, b) => a.distance < b.distance);
       console.log(washrooms);
@@ -125,15 +125,15 @@ export function MapScreen() {
           }}
           provider={PROVIDER_GOOGLE}
         >
-          <Marker
-            key="1"
+          {washrooms.map((washroom, i) => <Marker
+            key={i.toString()}
             coordinate={{
-              latitude: 43.78415937787995,
-              longitude: -79.18757409699056,
+              latitude: washroom.latitude,
+              longitude: washroom.longitude
             }}
-            title="UTSC"
-            description="UT Shit Campus"
-          />
+            title={washroom.name}
+            description={washroom.owner_username}
+          />)}
         </MapView>
       ) : (
         <Text>Loading...</Text>
