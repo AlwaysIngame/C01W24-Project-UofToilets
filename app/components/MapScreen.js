@@ -117,7 +117,6 @@ export function MapScreen() {
           ></WashroomInfoView> : 
           <ScrollableList washrooms={washrooms} onSearchPress={handleSearchPress} />
         }
-
         </BottomSheetScrollView>
       </BottomSheet>
     </View>
