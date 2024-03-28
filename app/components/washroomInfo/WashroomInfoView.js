@@ -10,7 +10,7 @@ import { Circle } from 'react-native-maps';
 import CircleButton from '../ui/CircleButton';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function WashroomInfoView({ name, distance, website, phone, address, hours, bookmarked, navigation, onClose }) {
+export default function WashroomInfoView({ name, distance, latitude, longitude, website, phone, address, hours, bookmarked, navigation, onClose }) {
 
   const [location, setLocation] = useState({coords: {latitude: 0, longitude: 0}});
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -67,8 +67,8 @@ export default function WashroomInfoView({ name, distance, website, phone, addre
       </View>
       <View style={washroomStyles.hlist}>
         <UIButton title="Directions" stretch={true} emphasis={true} onPress={onDirections} />
-        <UIButton title="Website" stretch={true} onPress={onWebsite} />
-        <UIButton title="Call" stretch={true} onPress={onCall} />
+        {website ? <UIButton title="Website" stretch={true} onPress={onWebsite} /> : null}
+        {phone ? <UIButton title="Call" stretch={true} onPress={onCall} /> : null}
       </View>
       <View style={[washroomStyles.hlist, {gap: 24, justifyContent: 'space-between', paddingBottom: 16}]}>
         <View>

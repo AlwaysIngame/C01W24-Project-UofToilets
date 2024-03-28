@@ -67,6 +67,7 @@ export function MapScreen() {
     setFocusedWashroom(washroom);
     console.log(washroom);
     setSheetScreen("store");
+    sheetRef.current?.snapToIndex(2);
   }, []);
 
   const searchArea = async () => {
