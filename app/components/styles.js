@@ -10,6 +10,18 @@ export const BORDER_COLOR = '#cccccc';
 
 export const styles = StyleSheet.create({
 
+  SUIBtn: {
+    width: 'auto',
+    height: 30,
+    width: 30,
+    borderRadius: 15,
+    backgroundColor: COLOR_SECONDARY,
+    justifyContent: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
   UIBtn: {
     width: 'auto',
     height: 72,
@@ -33,14 +45,17 @@ export const styles = StyleSheet.create({
   },
   
   UIBtnText: {
+    width: '100%',
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 15,
   },
 
   UIBtnTextEmph: {
+    width: '100%',
     textAlign: 'center',
     fontWeight: 'bold',
+    fontSize: 15,
     color: 'white'
   },
 
