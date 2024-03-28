@@ -5,6 +5,8 @@ import { TextInput } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 
+const SERVER_URL = "http://localhost:4000"
+
 const vh = Dimensions.get('window').height / 100;
 
 const WashroomScreen = ({ navigation }) => {
@@ -14,8 +16,34 @@ const WashroomScreen = ({ navigation }) => {
   const [accessibility, setAccessibility] = useState([]);
   const [availability, setAvailability] = useState('');
 
-  const handleSubmit = () => {
-    console.log('Submitted:', { name, location, capacity, accessibility, availability });
+  const handleSubmit = async () => {
+    const washroomData = {
+      name,
+      longitude: 1,
+      latitude: 1,
+      places_id: '1',
+    };
+  
+    try {
+      const response = await fetch(`${SERVER_URL}/addWashroom`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(washroomData),
+      });
+  
+      const responseBody = await response.json();
+  
+      if (responseBody.error) {
+        console.error('Failed to submit washroom:', responseBody.error);
+      } else {
+        console.log('Washroom submitted successfully:', responseBody.response);
+      }
+    } catch (error) {
+      console.error('Failed to submit washroom:', error);
+    }
   };
 
   const accessibilityOptions = [
