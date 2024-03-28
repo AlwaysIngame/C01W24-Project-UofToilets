@@ -65,7 +65,6 @@ export function MapScreen() {
 
   const markerPress = useCallback((washroom) => {
     setFocusedWashroom(washroom);
-    console.log(washroom);
     setSheetScreen("store");
     sheetRef.current?.snapToIndex(2);
   }, []);
@@ -86,9 +85,8 @@ export function MapScreen() {
     }
     setRegionChanged(false);
     try {
-      console.log("fetch try");
       const getWashroomRes = await fetch(
-        `${SERVER_URL}/getWashroomByLocation/${region.latitude}&${region.longitude}&10000`,
+        `${SERVER_URL}/getWashroomByLocation/${region.latitude}&${region.longitude}&${Math.floor(haversineDistance({ lat: region.latitude + region.latitudeDelta / 2, lon: region.longitude }, { lat: region.latitude, lon: region.longitude }))}`,
         {
           method: "GET",
           headers: {
@@ -96,16 +94,13 @@ export function MapScreen() {
           },
         },
       );
-      console.log("fetch done");
       const getWashroomBody = await getWashroomRes.json();
       let washrooms = getWashroomBody.response;
-      console.log(washrooms);
       for (let i = 0; i < washrooms.length; i++) {
         washrooms[i].distance =
           haversineDistance(washrooms[i], location) / 1000;
       }
       washrooms.sort((a, b) => a.distance < b.distance);
-      console.log(washrooms);
       setWashrooms(washrooms);
     } catch (error) {
       console.log(error);
@@ -182,7 +177,7 @@ export function MapScreen() {
         ref={sheetRef}
         index={1}
         snapPoints={snapPoints}
-      //onChange={handleSheetChange}
+        //onChange={handleSheetChange}
       >
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
           {sheetScreen == "store" ? (
