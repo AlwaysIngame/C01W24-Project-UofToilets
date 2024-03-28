@@ -1,17 +1,29 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, Button, StatusBar } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import * as Location from 'expo-location';
 import ScrollableList from './washroomList';
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import WashroomInfoView from './washroomInfo/WashroomInfoView';
 
 export function MapScreen({ washroomList }) {
 
   const [location, setLocation] = useState(null);
   const [isRegionChanged, setRegionChanged] = useState(false);
   const sheetRef = useRef(null);
-  const snapPoints = ['14%', '30%', '90%'];
+  const snapPoints = ['14%', '33%', '60%'];
+
+  const [sheetScreen, setSheetScreen] = useState('store');
+  
+  const [focusedWashroom, setFocusedWashroom] = useState({
+    name: "Bob's Store",
+    lat: 43.78415937787995,
+    lon: -79.18757409699056,
+    website: "www.bobsstore.com",
+    phone: "416-123-4567",
+    address: "1234 Bob Street",
+  });
 
   useEffect(() => {
     (async () => {
@@ -63,7 +75,7 @@ export function MapScreen({ washroomList }) {
       ) : (
         <Text>Loading...</Text>
       )}
-      <View style={{ height: 'fit-content', top: 50, display: 'flex', flexDirection: "column", position: 'absolute', width: '100%', justifyContent: 'center' }}>
+      <View style={{ height: 'fit-content', top: StatusBar.currentHeight, display: 'flex', flexDirection: "column", position: 'absolute', width: '100%', justifyContent: 'center' }}>
         <View style={{ order: 1, paddingHorizontal: 10}}>
           <GooglePlacesAutocomplete placeholder='Search' query={{ key: process.env.EXPO_PUBLIC_GOOGLE_MAPS_PLATFORM_API_KEY, language: 'en' }} onPress={(data, details = null) => {console.log(data, details)}} />
         </ View>
@@ -76,7 +88,12 @@ export function MapScreen({ washroomList }) {
         //onChange={handleSheetChange}
       >
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          <ScrollableList onSearchPress={handleSearchPress} />
+          {sheetScreen == "store" ? <WashroomInfoView {... focusedWashroom} onClose={() => setSheetScreen('list')}
+          ></WashroomInfoView> : 
+          <ScrollableList washroomList={washroomList}>
+
+          </ScrollableList>}
+          
         </BottomSheetScrollView>
       </BottomSheet>
     </View>
