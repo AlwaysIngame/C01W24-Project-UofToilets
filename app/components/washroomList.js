@@ -3,25 +3,11 @@ import { ScrollView, Text, StyleSheet, View } from 'react-native';
 import * as Location from 'expo-location';
 import SearchBar from './SearchBar'; 
 
-const fetchWashrooms = () => {
-  // simulate fetching data with coordinates
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        { name: 'Washroom 21', location: 'Location 1', coordinates: { latitude: 40.7128, longitude: -74.0060 } },
-        { name: 'Washroom 2', location: 'Location 2', coordinates: { latitude: 34.0522, longitude: -118.2437 } },
-        { name: 'Washroom 3', location: 'Location 3', coordinates: { latitude: 51.5074, longitude: -0.1278 } },
-        // More washrooms when implemented
-      ]);
-    }, 2000);
-  });
-};
-
 const getDistance = (lat1, lon1, lat2, lon2) => {
   return Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2));
 };
 
-const ScrollableList = () => {
+const ScrollableList =  ({ washrooms }) => {
   const [items, setItems] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -38,16 +24,14 @@ const ScrollableList = () => {
       setUserLocation(location.coords);
     })();
 
-    fetchWashrooms().then((data) => {
-      const sortedData = data.map(item => ({
-        ...item,
-        distance: getDistance(userLocation.latitude, userLocation.longitude, item.coordinates.latitude, item.coordinates.longitude)
-      })).sort((a, b) => a.distance - b.distance);
+    const sortedData = washrooms.map(item => ({
+      ...item,
+      distance: userLocation ? getDistance(userLocation.latitude, userLocation.longitude, item.latitude, item.longitude) : null
+    })).sort((a, b) => a.distance - b.distance);
 
-      setItems(sortedData);
-      setFilteredItems(sortedData); // Initialize filteredItems with all items
-    });
-  }, [userLocation]);
+    setItems(sortedData);
+    setFilteredItems(sortedData); 
+  }, [userLocation, washrooms]);
 
   return (
     <View style={styles.container}>
@@ -59,7 +43,7 @@ const ScrollableList = () => {
               <Text style={styles.name}>{item.name}</Text>
               <View style={styles.locationContainer}>
                 <Text style={styles.locationLabel}>Location:</Text>
-                <Text style={styles.location}>{item.location}</Text>
+                <Text style={styles.location}>{item.address}</Text>
               </View>
               <Text style={styles.distance}>Distance: {Number(item.distance).toFixed(2)} km</Text>
             </View>

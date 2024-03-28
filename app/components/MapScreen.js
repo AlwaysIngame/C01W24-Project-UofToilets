@@ -6,7 +6,31 @@ import * as Location from 'expo-location';
 import ScrollableList from './washroomList';
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
-export function MapScreen({ washroomList }) {
+export function MapScreen() {
+
+  const washrooms = [
+    {
+      id: '1',
+      name: 'Washroom 1',
+      approved: true,
+      owner_username: 'owner1',
+      longitude: 43.65107,
+      latitude: -79.347015,
+      places_id: 'place1',
+      address: 'Address 1',
+    },
+    {
+      id: '2',
+      name: 'Washroom 2',
+      approved: true,
+      owner_username: 'owner2',
+      longitude: 43.65207,
+      latitude: -79.348015,
+      places_id: 'place2',
+      address: 'Address 2',
+    },
+    // Add more washrooms as needed
+  ];
 
   const [location, setLocation] = useState(null);
   const [isRegionChanged, setRegionChanged] = useState(false);
@@ -76,7 +100,7 @@ export function MapScreen({ washroomList }) {
         //onChange={handleSheetChange}
       >
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          <ScrollableList onSearchPress={handleSearchPress} />
+          <ScrollableList washrooms={washrooms} onSearchPress={handleSearchPress} />
         </BottomSheetScrollView>
       </BottomSheet>
     </View>
