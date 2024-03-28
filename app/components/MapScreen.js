@@ -8,6 +8,7 @@ import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import WashroomInfoView from "./washroomInfo/WashroomInfoView";
 import { SERVER_URL } from "../src/constants";
 import haversineDistance from "haversine-distance";
+import Constants from "expo-constants";
 
 export function MapScreen() {
   let location = {
@@ -78,7 +79,7 @@ export function MapScreen() {
     }
     setRegionChanged(false);
     try {
-      console.log("fetch try")
+      console.log("fetch try");
       const getWashroomRes = await fetch(
         `${SERVER_URL}/getWashroomByLocation/${region.latitude}&${region.longitude}&10000`,
         {
@@ -88,17 +89,16 @@ export function MapScreen() {
           },
         },
       );
-      console.log("fetch done")
+      console.log("fetch done");
       const getWashroomBody = await getWashroomRes.json();
       let washrooms = getWashroomBody.response;
       console.log(washrooms);
       for (let i = 0; i < washrooms.length; i++) {
-        washrooms[i].distance = haversineDistance(washrooms[i], location)
+        washrooms[i].distance = haversineDistance(washrooms[i], location);
       }
       washrooms.sort((a, b) => a.distance < b.distance);
       console.log(washrooms);
       setWashrooms(washrooms);
-
     } catch (error) {
       console.log(error);
     }
@@ -138,11 +138,34 @@ export function MapScreen() {
       ) : (
         <Text>Loading...</Text>
       )}
-      <View style={{ height: 'fit-content', top: Constants.statusBarHeight, display: 'flex', flexDirection: "column", position: 'absolute', width: '100%', justifyContent: 'center' }}>
-        <View style={{ order: 1, paddingHorizontal: 10}}>
-          <GooglePlacesAutocomplete placeholder='Search' query={{ key: process.env.EXPO_PUBLIC_GOOGLE_MAPS_PLATFORM_API_KEY, language: 'en' }} onPress={(data, details = null) => {console.log(data, details)}} />
-        </ View>
-        {isRegionChanged ? <View style={styles.searchButton}><Button title='Search this area' onPress={searchArea} /></ View> : null}
+      <View
+        style={{
+          height: "fit-content",
+          top: Constants.statusBarHeight,
+          display: "flex",
+          flexDirection: "column",
+          position: "absolute",
+          width: "100%",
+          justifyContent: "center",
+        }}
+      >
+        <View style={{ order: 1, paddingHorizontal: 10 }}>
+          <GooglePlacesAutocomplete
+            placeholder="Search"
+            query={{
+              key: process.env.EXPO_PUBLIC_GOOGLE_MAPS_PLATFORM_API_KEY,
+              language: "en",
+            }}
+            onPress={(data, details = null) => {
+              console.log(data, details);
+            }}
+          />
+        </View>
+        {isRegionChanged ? (
+          <View style={styles.searchButton}>
+            <Button title="Search this area" onPress={searchArea} />
+          </View>
+        ) : null}
       </View>
       <BottomSheet
         ref={sheetRef}
@@ -151,10 +174,17 @@ export function MapScreen() {
       //onChange={handleSheetChange}
       >
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          {sheetScreen == "store" ? <WashroomInfoView {... focusedWashroom} onClose={() => setSheetScreen('list')}
-          ></WashroomInfoView> : 
-          <ScrollableList washrooms={washrooms} onSearchPress={handleSearchPress} />
-        }
+          {sheetScreen == "store" ? (
+            <WashroomInfoView
+              {...focusedWashroom}
+              onClose={() => setSheetScreen("list")}
+            ></WashroomInfoView>
+          ) : (
+            <ScrollableList
+              washrooms={washrooms}
+              onSearchPress={handleSearchPress}
+            />
+          )}
         </BottomSheetScrollView>
       </BottomSheet>
     </View>

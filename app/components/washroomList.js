@@ -1,41 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, StyleSheet, View } from 'react-native';
-import * as Location from 'expo-location';
 import SearchBar from './SearchBar'; 
 
-const getDistance = (lat1, lon1, lat2, lon2) => {
-  return Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2));
-};
-
 const ScrollableList =  ({ washrooms }) => {
-  const [items, setItems] = useState([]);
-  const [userLocation, setUserLocation] = useState(null);
-  const [filteredItems, setFilteredItems] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.log('Permission to access location was denied');
-        return;
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      setUserLocation(location.coords);
-    })();
-
-    const sortedData = washrooms.map(item => ({
-      ...item,
-      distance: userLocation ? getDistance(userLocation.latitude, userLocation.longitude, item.latitude, item.longitude) : null
-    })).sort((a, b) => a.distance - b.distance);
-
-    setItems(sortedData);
-    setFilteredItems(sortedData); 
-  }, [userLocation, washrooms]);
+  const [filteredItems, setFilteredItems] = useState(washrooms);
 
   return (
     <View style={styles.container}>
-      <SearchBar items={items} setFilteredItems={setFilteredItems} />
+      <SearchBar items={washrooms} setFilteredItems={setFilteredItems} />
       <ScrollView style={{ flex: 1 }}>
         {filteredItems.length > 0 ? (
           filteredItems.map((item, index) => (
