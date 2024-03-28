@@ -21,7 +21,6 @@ export default function App() {
         <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Settings" component={SettingsScreen}/>
-        
       </Stack.Navigator>
     </NavigationContainer>
   );
