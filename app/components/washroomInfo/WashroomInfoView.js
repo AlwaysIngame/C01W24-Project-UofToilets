@@ -10,7 +10,7 @@ import { Circle } from 'react-native-maps';
 import CircleButton from '../ui/CircleButton';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function WashroomInfoView({ name, lat, lon, website, phone, address, hours, bookmarked, navigation, onClose }) {
+export default function WashroomInfoView({ name, distance, website, phone, address, hours, bookmarked, navigation, onClose }) {
 
   const [location, setLocation] = useState({coords: {latitude: 0, longitude: 0}});
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -36,7 +36,7 @@ export default function WashroomInfoView({ name, lat, lon, website, phone, addre
   }
   
   const onDirections = () => {
-    Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`)
+    Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`)
   }
 
   const onWebsite = () => {
@@ -78,7 +78,7 @@ export default function WashroomInfoView({ name, lat, lon, website, phone, addre
         </View>
         <View>
           <Text style={washroomStyles.washroomInfoTextEmph}>DISTANCE</Text>
-          <Text style={washroomStyles.washroomInfoText}>{(haversineDistance({lat: lat, lon: lon}, location.coords) / 1000).toFixed(1) + " km"}</Text>
+          <Text style={washroomStyles.washroomInfoText}>{(distance).toFixed(1) + " km"}</Text>
         </View>
         <UIButton title={"Report Issue"} stretch={true} onPress={() => {}} height='auto'/>
       </View>

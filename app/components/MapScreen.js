@@ -25,8 +25,8 @@ export function MapScreen() {
 
   const [focusedWashroom, setFocusedWashroom] = useState({
     name: "Bob's Store",
-    lat: 43.78415937787995,
-    lon: -79.18757409699056,
+    latitude: 43.78415937787995,
+    longitude: -79.18757409699056,
     website: "www.bobsstore.com",
     phone: "416-123-4567",
     address: "1234 Bob Street",
@@ -63,6 +63,12 @@ export function MapScreen() {
     sheetRef.current?.snapToIndex(2); // Snap to 90%
   }, []);
 
+  const markerPress = useCallback((washroom) => {
+    setFocusedWashroom(washroom);
+    console.log(washroom);
+    setSheetScreen("store");
+  }, []);
+
   const searchArea = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -94,7 +100,8 @@ export function MapScreen() {
       let washrooms = getWashroomBody.response;
       console.log(washrooms);
       for (let i = 0; i < washrooms.length; i++) {
-        washrooms[i].distance = haversineDistance(washrooms[i], location)/1000;
+        washrooms[i].distance =
+          haversineDistance(washrooms[i], location) / 1000;
       }
       washrooms.sort((a, b) => a.distance < b.distance);
       console.log(washrooms);
@@ -119,21 +126,24 @@ export function MapScreen() {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-          onRegionChangeComplete={(region) => {
-            setRegionChanged(true);
+          onRegionChangeComplete={(region, { isGesture }) => {
+            if (isGesture) setRegionChanged(true);
             setRegion(region);
           }}
           provider={PROVIDER_GOOGLE}
         >
-          {washrooms.map((washroom, i) => <Marker
-            key={i.toString()}
-            coordinate={{
-              latitude: washroom.latitude,
-              longitude: washroom.longitude
-            }}
-            title={washroom.name}
-            description={washroom.owner_username}
-          />)}
+          {washrooms.map((washroom) => (
+            <Marker
+              key={washroom.id}
+              coordinate={{
+                latitude: washroom.latitude,
+                longitude: washroom.longitude,
+              }}
+              title={washroom.name}
+              description={washroom.owner_username}
+              onPress={() => markerPress(washroom)}
+            />
+          ))}
         </MapView>
       ) : (
         <Text>Loading...</Text>
