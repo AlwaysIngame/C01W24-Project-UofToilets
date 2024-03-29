@@ -69,6 +69,14 @@ export function MapScreen() {
     sheetRef.current?.snapToIndex(2); // Snap to 90%
   }, []);
 
+  const handleWashroomPress = (id) => {
+    console.log(id);
+    console.log(washrooms);
+    console.log(washrooms.find((washroom) => washroom.id === id));
+    setFocusedWashroom(washrooms.find((washroom) => washroom.id === id))
+    setSheetScreen('store')
+  }
+
   const onRouteSearch = useCallback(async (data, details = null) => {
     console.log(details.place_id);
     await updateUserLocation();
@@ -235,6 +243,7 @@ export function MapScreen() {
             <ScrollableList
               washrooms={washrooms}
               onSearchPress={handleSearchPress}
+              onSelect={handleWashroomPress}
             />
           )}
         </BottomSheetScrollView>

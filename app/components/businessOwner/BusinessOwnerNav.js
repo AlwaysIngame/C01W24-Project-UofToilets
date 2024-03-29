@@ -13,7 +13,7 @@ export default function BusinessOwnerTabs(props) {
     <GestureHandlerRootView style={{ flex: 1 }}>
     <Tab.Navigator>
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
-      <Tab.Screen name="My Washrooms" component={MyWashrooms}/>
+      <Tab.Screen name="My Washrooms" children={() => <MyWashrooms navigation={props.navigation}/>}/>
       <Tab.Screen name="Settings" children={() => <MasterSettingsScreen userType="businessOwner" navigation={props.navigation}/>}/>
     </Tab.Navigator>
     </GestureHandlerRootView>

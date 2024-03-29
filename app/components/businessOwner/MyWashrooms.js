@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WashroomList from '../washroomListComponent';
 import { SERVER_URL } from '../../src/constants';
+import UIButton from '../ui/UIButton';
 
 export default function MyWashrooms(props) {
 
@@ -31,6 +32,7 @@ export default function MyWashrooms(props) {
             // Do some error handling
         }
         console.log(washroomReqBody);
+
         setWashroomList(washroomReqBody.response);
     }
 
@@ -38,10 +40,18 @@ export default function MyWashrooms(props) {
         queryWashrooms();
     }, []);
 
+    const handleSlect = (id) => {
+        console.log(id);
+    }
+
+    const handleAddWashroom = () => {
+        props.navigation.navigate("AddWashroom");
+    }
+
     return (
     <View>
-        <WashroomList washrooms={washroomList}/>
-        <Button style={{position: "absolute"}} title='Add Washroom'/>
+        <ScrollableList washrooms={washroomList} onSelect={handleSlect}/>
+        <UIButton title="Add Washroom" onPress={handleAddWashroom} emphasis={true}/>
     </View>
     );
 }
