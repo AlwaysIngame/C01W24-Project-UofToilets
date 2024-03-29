@@ -2,10 +2,8 @@ import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser'
 import { MongoClient, ObjectId, Db } from 'mongodb';
-import cors from 'cors'
 
 const app = express();
-app.use(cors());
 const PORT = 4000;
 let mongoURL: string;
 if (process.env.ENV === 'Docker') {
