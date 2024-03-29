@@ -10,6 +10,8 @@ import { SERVER_URL } from "../src/constants";
 import haversineDistance from "haversine-distance";
 import Constants from "expo-constants";
 import MapViewDirections from "react-native-maps-directions";
+import { getAddress } from "../src/googlePlaces";
+import UIButton from "./ui/UIButton";
 
 export function MapScreen() {
   let location = {
@@ -21,7 +23,7 @@ export function MapScreen() {
   const [isRegionChanged, setRegionChanged] = useState(false);
   const sheetRef = useRef(null);
   const mapRef = useRef(null);
-  const snapPoints = ["14%", "33%", "60%"];
+  const snapPoints = [36, "33%", "60%"];
 
   const [sheetScreen, setSheetScreen] = useState("list");
   const [washrooms, setWashrooms] = useState([]);
@@ -68,6 +70,14 @@ export function MapScreen() {
   const handleSearchPress = useCallback(() => {
     sheetRef.current?.snapToIndex(2); // Snap to 90%
   }, []);
+
+  const handleWashroomPress = (id) => {
+    console.log(id);
+    console.log(washrooms);
+    console.log(washrooms.find((washroom) => washroom.id === id));
+    setFocusedWashroom(washrooms.find((washroom) => washroom.id === id))
+    setSheetScreen('store')
+  }
 
   const onRouteSearch = useCallback(async (data, details = null) => {
     console.log(details.place_id);
@@ -119,13 +129,19 @@ export function MapScreen() {
         },
       );
       const getWashroomBody = await getWashroomRes.json();
-      let washrooms = getWashroomBody.response;
-      for (let i = 0; i < washrooms.length; i++) {
-        washrooms[i].distance =
-          haversineDistance(washrooms[i], location) / 1000;
+      let ws = getWashroomBody.response;
+      for (let i = 0; i < ws.length; i++) {
+        ws[i].distance =
+          haversineDistance(ws[i], location) / 1000;
       }
-      washrooms.sort((a, b) => a.distance < b.distance);
-      setWashrooms(washrooms);
+      setWashrooms(ws.sort((a, b) => a.distance - b.distance));
+      ws.forEach(washroom => {
+          console.log(washroom)
+          getAddress(washroom.places_id).then((address) => {
+              washroom.address = address;
+              setWashrooms(a => [...a]);
+          });
+      });
     } catch (error) {
       console.log(error);
     }
@@ -208,8 +224,10 @@ export function MapScreen() {
         </View>
         {isRegionChanged ? (
           <View style={styles.searchButton}>
-            <Button
+            <UIButton
               title="Search this area"
+              height={50}
+              emphasis={false}
               onPress={() => {
                 setShowRoute(false);
                 searchArea();
@@ -235,6 +253,7 @@ export function MapScreen() {
             <ScrollableList
               washrooms={washrooms}
               onSearchPress={handleSearchPress}
+              onSelect={handleWashroomPress}
             />
           )}
         </BottomSheetScrollView>

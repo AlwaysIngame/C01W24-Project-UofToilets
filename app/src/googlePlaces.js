@@ -1,5 +1,6 @@
 export const getHours = async (placeId) => {
     const result = await getFromAPI('current_opening_hours', placeId);
+    if (result.current_opening_hours === undefined) return undefined;
     return [result.current_opening_hours.weekday_text.map((day) => day.split(': ')[1]), result.current_opening_hours.open_now];
 }
 
