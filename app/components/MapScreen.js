@@ -227,6 +227,7 @@ export function MapScreen() {
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
           {sheetScreen == "store" ? (
             <WashroomInfoView
+              key={focusedWashroom.id}
               {...focusedWashroom}
               onClose={() => setSheetScreen("list")}
             ></WashroomInfoView>
