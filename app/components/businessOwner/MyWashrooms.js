@@ -34,7 +34,9 @@ export default function MyWashrooms(props) {
         setWashroomList(washroomReqBody.response);
     }
 
-    queryWashrooms();
+    useEffect(() => {
+        queryWashrooms();
+    }, []);
 
     return (
     <View>
