@@ -70,6 +70,7 @@ export function MapScreen() {
   }, []);
 
   const onRouteSearch = useCallback(async (data, details = null) => {
+    console.log(details.place_id);
     await updateUserLocation();
     setRoute([
       location,
@@ -83,9 +84,10 @@ export function MapScreen() {
   });
 
   const markerPress = useCallback((washroom) => {
+    console.log(washroom);
     setFocusedWashroom(washroom);
     setSheetScreen("store");
-    sheetRef.current?.snapToIndex(2);
+    sheetRef.current?.snapToIndex(1);
   }, []);
 
   const updateUserLocation = async () => {
@@ -225,6 +227,7 @@ export function MapScreen() {
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
           {sheetScreen == "store" ? (
             <WashroomInfoView
+              key={focusedWashroom.id}
               {...focusedWashroom}
               onClose={() => setSheetScreen("list")}
             ></WashroomInfoView>
