@@ -5,25 +5,32 @@ import UIButton from '../ui/UIButton';
 import { Linking } from 'react-native';
 import haversineDistance from 'haversine-distance';
 import * as Location from 'expo-location';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Circle } from 'react-native-maps';
 import CircleButton from '../ui/CircleButton';
 import { Ionicons } from '@expo/vector-icons';
+import { getAddress, getCoordinates, getHours, getPhone, getStatus, getWebsite } from '../../src/googlePlaces';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
-export default function WashroomInfoView({ name, distance, latitude, longitude, website, phone, address, hours, bookmarked, navigation, onClose }) {
+export default function WashroomInfoView({ name, bookmarked, navigation, onClose, places_id }) {
 
   const [location, setLocation] = useState({coords: {latitude: 0, longitude: 0}});
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const [hoursState, setHoursState] = useState([]);
+  const [address, setAddress] = useState('');
+  // const [coordinates, setCoordinates] = useState({latitude: 0, longitude: 0});
+  const [distance, setDistance] = useState(0);
+  const [openNow, setOpenNow] = useState(true);
+  const [operationalStatus, setOperationalStatus] = useState('OPERATIONAL');
+  const [website, setWebsite] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
 
   const [bookmarkedState, setBookmarkedState] = useState(bookmarked);
   
   const getLocation = async () => {
     let location = await Location.getCurrentPositionAsync({});
     setLocation(location);
-  }
-
-  const isOpen = () => {
-    return true;
   }
 
   const closeView = () => {
@@ -47,11 +54,47 @@ export default function WashroomInfoView({ name, distance, latitude, longitude, 
     // Call the phone number
   }
 
-  const onReportIssue = () => {
-    // Report an issue
+  const onReportIssue = async () => {
+    console.log(await getStatus(places_id));
   }
 
-  getLocation();
+  const updateParams = async () => {
+    getHours(places_id).then((hours) => {
+      setHoursState(hours[0]);
+      setOpenNow(hours[1]);
+    });
+    getAddress(places_id).then((address) => {
+      setAddress(address);
+    });
+    getCoordinates(places_id).then((coordinates) => {
+      Location.getCurrentPositionAsync({}).then((location) => {
+        setDistance(haversineDistance(location.coords, coordinates) / 1000);
+      });
+    });
+    getStatus(places_id).then((status) => {
+      if (status === 'CLOSED_TEMPORARILY') {
+        setOperationalStatus('Temporarily Closed');
+      } else if (status === 'CLOSED_PERMANENTLY') {
+        setOperationalStatus('Permanently Closed');
+      } else {
+        setOperationalStatus('OPERATIONAL');
+      }
+    });
+
+    getWebsite(places_id).then((website) => {
+      setWebsite(website);
+    });
+    getPhone(places_id).then((phone) => {
+      setPhoneNumber(phone);
+    });
+
+
+  };
+
+  useEffect(() => {
+    updateParams();
+  }, []);
+
 
   return (
     <View style={washroomStyles.container}>
@@ -68,25 +111,29 @@ export default function WashroomInfoView({ name, distance, latitude, longitude, 
       <View style={washroomStyles.hlist}>
         <UIButton title="Directions" stretch={true} emphasis={true} onPress={onDirections} />
         {website ? <UIButton title="Website" stretch={true} onPress={onWebsite} /> : null}
-        {phone ? <UIButton title="Call" stretch={true} onPress={onCall} /> : null}
+        {phoneNumber ? <UIButton title="Call" stretch={true} onPress={onCall} /> : null}
       </View>
       <View style={[washroomStyles.hlist, {gap: 24, justifyContent: 'space-between', paddingBottom: 16}]}>
+        {operationalStatus === 'OPERATIONAL' ? 
         <View>
           <Text style={washroomStyles.washroomInfoTextEmph}>HOURS</Text>
-          {isOpen() ? <Text style={[washroomStyles.washroomInfoText, {color: 'green'}]}>Open</Text> :
-           <Text style={washroomStyles.washroomInfoText}>Closed</Text>}
-        </View>
+          {openNow ? <Text style={[washroomStyles.washroomInfoText, {color: 'green'}]}>Open</Text> :
+           <Text style={[washroomStyles.washroomInfoText, {color: 'red'}]}>Closed</Text>}
+        </View> :
+        <View>
+        <Text style={[washroomStyles.washroomInfoText, {maxWidth: 100}, {color: 'orange'}]}>{operationalStatus}</Text>
+        </View>}
         <View>
           <Text style={washroomStyles.washroomInfoTextEmph}>DISTANCE</Text>
-          <Text style={washroomStyles.washroomInfoText}>{(distance).toFixed(1) + " km"}</Text>
+          <Text style={washroomStyles.washroomInfoText}>{distance.toFixed(1) + " km"}</Text>
         </View>
-        <UIButton title={"Report Issue"} stretch={true} onPress={() => {}} height='auto'/>
+        <UIButton title={"Report Issue"} stretch={true} onPress={onReportIssue} height='auto'/>
       </View>
       {[0, 1, 2, 3, 4, 5, 6].map((day) => {
         return (
         <View style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}} key={day}>
           <Text style={{paddingTop: 8}}>{days[day]}</Text>
-          <Text style={{paddingTop: 8}}>9:00AM - 9:00PM</Text>
+          <Text style={{paddingTop: 8}}>{hoursState[day] ? hoursState[day] : "Unspecified"}</Text>
         </View>
         );
       })}
