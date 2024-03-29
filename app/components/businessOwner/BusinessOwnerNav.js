@@ -1,16 +1,8 @@
 import * as React from 'react';
-import { Settings, StyleSheet, Text, View } from 'react-native';
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CardMenu from '../userCardMenu'
-import ScrollableList from '../washroomList';
 import { MapScreen } from '../MapScreen';
-import InformationScreen from '../InformationScreen/InformationScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyWashrooms from './MyWashrooms';
-import SettingsScreen from '../SettingsScreen/SettingsScreen';
 import MasterSettingsScreen from '../SettingsScreen/SettingsMaster';
 
 export default function BusinessOwnerTabs(props) {
