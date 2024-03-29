@@ -1,36 +1,62 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, Dimensions,} from 'react-native';
+import { View, Text, Button, StyleSheet, Dimensions, KeyboardAvoidingView,} from 'react-native';
 import { Checkbox } from 'expo-checkbox';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native';
-
-const SERVER_URL = "http://localhost:4000"
+import { TouchableOpacity, ScrollView } from 'react-native';
+import { styles as globalstyles } from './styles';
+import UIButton from './ui/UIButton';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { Platform } from 'react-native';
+import { SERVER_URL } from '../src/constants';
 
 const vh = Dimensions.get('window').height / 100;
 
 const WashroomScreen = ({ navigation }) => {
   const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
+  const [description, setDescription] = useState('');
   const [capacity, setCapacity] = useState('');
   const [accessibility, setAccessibility] = useState([]);
-  const [availability, setAvailability] = useState('');
+  const [latitude, setLatitude] = useState(undefined);
+  const [longitude, setLongitude] = useState(undefined);
+  const [place_id, setPlaceId] = useState(undefined);
+
+  // Get hours from google places id
+  const getHours = async (placeId) => {
+      const placeReq = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=current_opening_hours&key=${process.env.EXPO_PUBLIC_GOOGLE_MAPS_PLATFORM_API_KEY}`);
+      const placeReqBody = await placeReq.json();
+      if (placeReqBody.error) {
+          console.log(placeReqBody.error);
+      }
+      console.log(placeReqBody.result.current_opening_hours);
+  }
+
+  const onLocationSelect = (data, details) => {
+    console.log("updated")
+    setLatitude(details.geometry.location.lat);
+    setLongitude(details.geometry.location.lng);
+    setPlaceId(details.place_id);
+  }
 
   const handleSubmit = async () => {
     const washroomData = {
-      name,
-      longitude: 1,
-      latitude: 1,
-      places_id: '1',
+      name: name,
+      longitude: longitude,
+      latitude: latitude,
+      places_id: place_id,
+      capacity: capacity,
+      description: description,
+      accessibility: accessibility,
     };
   
     try {
+      console.log(washroomData);
       const response = await fetch(`${SERVER_URL}/addWashroom`, {
         method: 'POST',
-        headers: {
+        headers: token ? {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
-        },
+        } : {'Content-Type': 'application/json',},
         body: JSON.stringify(washroomData),
       });
   
@@ -41,6 +67,7 @@ const WashroomScreen = ({ navigation }) => {
       } else {
         console.log('Washroom submitted successfully:', responseBody.response);
       }
+      navigation.goBack();
     } catch (error) {
       console.error('Failed to submit washroom:', error);
     }
@@ -65,49 +92,62 @@ const WashroomScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Recommend a Washroom</Text>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Washroom Name:</Text>
-        <TextInput value={name} onChangeText={setName} style={styles.input} />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Location of Washroom:</Text>
-        <TextInput value={location} onChangeText={setLocation} style={styles.input} />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Capacity:</Text>
-        <TextInput value={capacity} onChangeText={setCapacity} style={styles.input} keyboardType="numeric" />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Availability:</Text>
-        <TextInput value={availability} onChangeText={setAvailability} style={styles.input} />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Accessibility:</Text>
-        {accessibilityOptions.map(option => (
-          <View key={option.value} style={styles.checkboxContainer}>
-            <Checkbox
-              value={accessibility.includes(option.value)}
-              onValueChange={() => handleCheckboxChange(option.value)}
-            />
-            <Text style={styles.checkboxLabel}>{option.label}</Text>
-          </View>
-        ))}
-      </View>
-      <View>
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={[styles.container, {marginTop: 0}]}>
+      <ScrollView
+   nestedScrollEnabled={true}
+   keyboardShouldPersistTaps='handled'
+   contentContainerStyle={{ flexGrow: 1 }}>
+
+        <Text style={styles.header}>Recommend a Washroom</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Washroom Name:</Text>
+          <TextInput value={name} onChangeText={setName} style={styles.input} />
+        </View>
+        <View style={[styles.input, {zIndex: 10000, height: 170}]}>
+          <Text style={[styles.label]}>Location of Washroom:</Text>
+          <GooglePlacesAutocomplete
+            placeholder="Address"
+            query={{
+              key: process.env.EXPO_PUBLIC_GOOGLE_MAPS_PLATFORM_API_KEY,
+              language: "en",
+            }}
+            onPress={onLocationSelect}
+            fetchDetails={true}
+            disableScroll={true}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Capacity:</Text>
+          <TextInput value={capacity} onChangeText={setCapacity} style={styles.input} keyboardType="numeric" />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Description (Optional):</Text>
+          <TextInput value={description} onChangeText={setDescription} multiline={true} style={styles.input} />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Accessibility:</Text>
+          {accessibilityOptions.map(option => (
+            <View key={option.value} style={styles.checkboxContainer}>
+              <Checkbox
+                value={accessibility.includes(option.value)}
+                onValueChange={() => handleCheckboxChange(option.value)}
+              />
+              <Text style={styles.checkboxLabel}>{option.label}</Text>
+            </View>
+          ))}
+        </View>
+        
+        <UIButton title="Submit" onPress={handleSubmit} emphasis={true}/>
+        <View style={{height: 24}}></View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+    padding: 12,
     backgroundColor: 'white',
   },
   header: {
