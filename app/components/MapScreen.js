@@ -9,15 +9,18 @@ import WashroomInfoView from "./washroomInfo/WashroomInfoView";
 import { SERVER_URL } from "../src/constants";
 import haversineDistance from "haversine-distance";
 import Constants from "expo-constants";
+import MapViewDirections from "react-native-maps-directions";
 
 export function MapScreen() {
   let location = {
     latitude: 43.65107,
     longitude: -79.347015,
   };
+
   const [region, setRegion] = useState(null);
   const [isRegionChanged, setRegionChanged] = useState(false);
   const sheetRef = useRef(null);
+  const mapRef = useRef(null);
   const snapPoints = ["14%", "33%", "60%"];
 
   const [sheetScreen, setSheetScreen] = useState("list");
@@ -31,6 +34,9 @@ export function MapScreen() {
     phone: "416-123-4567",
     address: "1234 Bob Street",
   });
+
+  const [showRoute, setShowRoute] = useState(false);
+  const [route, setRoute] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -63,13 +69,26 @@ export function MapScreen() {
     sheetRef.current?.snapToIndex(2); // Snap to 90%
   }, []);
 
+  const onRouteSearch = useCallback(async (data, details = null) => {
+    await updateUserLocation();
+    setRoute([
+      location,
+      {
+        latitude: details.geometry.location.lat,
+        longitude: details.geometry.location.lng,
+      },
+    ]);
+    console.log(route);
+    setShowRoute(true);
+  });
+
   const markerPress = useCallback((washroom) => {
     setFocusedWashroom(washroom);
     setSheetScreen("store");
     sheetRef.current?.snapToIndex(2);
   }, []);
 
-  const searchArea = async () => {
+  const updateUserLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       location = {
@@ -83,6 +102,9 @@ export function MapScreen() {
         longitude: loc.coords.longitude,
       };
     }
+  };
+  const searchArea = async () => {
+    await updateUserLocation();
     setRegionChanged(false);
     try {
       const getWashroomRes = await fetch(
@@ -126,8 +148,24 @@ export function MapScreen() {
             if (isGesture) setRegionChanged(true);
             setRegion(region);
           }}
+          showsUserLocation
           provider={PROVIDER_GOOGLE}
+          ref={mapRef}
         >
+          {showRoute && route.length >= 2 ? (
+            <MapViewDirections
+              origin={route[0]}
+              waypoints={route.length > 2 ? route.slice(1, -1) : undefined}
+              destination={route[route.length - 1]}
+              apikey={process.env.EXPO_PUBLIC_GOOGLE_MAPS_PLATFORM_API_KEY}
+              onReady={(result) => {
+                mapRef.current.fitToCoordinates(result.coordinates, {});
+                searchArea(); // Change to update washrooms along route
+              }}
+              strokeWidth={3}
+              strokeColor="red"
+            />
+          ) : null}
           {washrooms.map((washroom) => (
             <Marker
               key={washroom.id}
@@ -157,19 +195,24 @@ export function MapScreen() {
       >
         <View style={{ order: 1, paddingHorizontal: 10 }}>
           <GooglePlacesAutocomplete
-            placeholder="Search"
+            placeholder="Washrooms on your way..."
             query={{
               key: process.env.EXPO_PUBLIC_GOOGLE_MAPS_PLATFORM_API_KEY,
               language: "en",
             }}
-            onPress={(data, details = null) => {
-              console.log(data, details);
-            }}
+            onPress={onRouteSearch}
+            fetchDetails={true}
           />
         </View>
         {isRegionChanged ? (
           <View style={styles.searchButton}>
-            <Button title="Search this area" onPress={searchArea} />
+            <Button
+              title="Search this area"
+              onPress={() => {
+                setShowRoute(false);
+                searchArea();
+              }}
+            />
           </View>
         ) : null}
       </View>
@@ -177,7 +220,7 @@ export function MapScreen() {
         ref={sheetRef}
         index={1}
         snapPoints={snapPoints}
-        //onChange={handleSheetChange}
+      //onChange={handleSheetChange}
       >
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
           {sheetScreen == "store" ? (
