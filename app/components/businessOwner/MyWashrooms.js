@@ -7,11 +7,13 @@ import CardMenu from '../userCardMenu'
 import ScrollableList from '../washroomList';
 import { MapScreen } from '../MapScreen';
 import InformationScreen from '../InformationScreen/InformationScreen';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WashroomList from '../washroomListComponent';
 import { SERVER_URL } from '../../src/constants';
 import UIButton from '../ui/UIButton';
+import { styles } from '../styles';
+import { getAddress } from '../../src/googlePlaces';
 
 export default function MyWashrooms(props) {
 
@@ -31,9 +33,20 @@ export default function MyWashrooms(props) {
             console.log(washroomReqBody.error);
             // Do some error handling
         }
-        console.log(washroomReqBody);
-
+        // console.log(washroomReqBody);
+        // console.log(washroomReqBody.response);
         setWashroomList(washroomReqBody.response);
+        washroomReqBody.response.forEach(washroom => {
+            washroom.distance = 0;
+            console.log(washroom)
+            getAddress(washroom.places_id).then((address) => {
+                washroom.address = address;
+                setWashroomList(a => [...a]);
+                // setWashroomList(currentWashrooms => [currentWashrooms.filter(w => w.id != washroom.id), washroom]);
+            });
+        });
+
+        // setAddresses();
     }
 
     useEffect(() => {
@@ -49,9 +62,14 @@ export default function MyWashrooms(props) {
     }
 
     return (
-    <View>
-        <ScrollableList washrooms={washroomList} onSelect={handleSlect}/>
-        <UIButton title="Add Washroom" onPress={handleAddWashroom} emphasis={true}/>
+    <View style={styles.container}>
+        <ScrollView>
+            <View style={{padding: 12, gap: 12}}>
+                <UIButton title = "Refresh" onPress = {queryWashrooms} height={50}/>
+                <ScrollableList washrooms={washroomList} onSelect={handleSlect}/>
+                <UIButton title="Add Washroom" onPress={handleAddWashroom} emphasis={true}/>
+            </View>
+        </ScrollView>
     </View>
     );
 }
