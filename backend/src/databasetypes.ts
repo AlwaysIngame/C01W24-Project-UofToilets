@@ -6,6 +6,9 @@ export interface Washroom {
     longitude: number,                  //Longitutde
     latitude: number,                   //Latitude
     places_id: string,                  //The id of the location in the places api
+
+    // Not stored in database
+    address: string,                    //The address of the business, can be derived from places_id
 }
 
 export function isValidDatabaseWashroom(washroom: any): boolean {
@@ -15,6 +18,12 @@ export function isValidDatabaseWashroom(washroom: any): boolean {
     && washroom.longitude != undefined
     && washroom.latitude != undefined
     && washroom.places_id != undefined;
+}
+
+export interface WashroomLocationReqPayload { // getWashroomByLocation
+    longitude: number,
+    latitude: number,
+    radius?: number,                    // Radius (meters) around long and lat to search 
 }
 
 export enum COLLECTIONS {
