@@ -10,24 +10,35 @@ import InformationScreen from '../InformationScreen/InformationScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WashroomList from '../washroomListComponent';
+import { SERVER_URL } from '../../src/constants';
 
 export default function MyWashrooms(props) {
 
-    const washroomListDummy = [
-        {
-            name: "Washroom 1",
-        },
-        {
-            name: "Washroom 2",
-        },
-        {
-            name: "Washroom 3",
-        },
-    ]
+    const [washroomList, setWashroomList] = useState([]);
+
+    const queryWashrooms = async () => {
+        const washroomReq = await fetch(`${SERVER_URL}/getUserWashrooms`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${await AsyncStorage.getItem("session_token")}`
+            }
+        });
+    
+        const washroomReqBody = await washroomReq.json();
+        if (washroomReqBody.error) {
+            console.log(washroomReqBody.error);
+            // Do some error handling
+        }
+        console.log(washroomReqBody);
+        setWashroomList(washroomReqBody.response);
+    }
+
+    queryWashrooms();
 
     return (
     <View>
-        <WashroomList washrooms={washroomListDummy}/>
+        <WashroomList washrooms={washroomList}/>
         <Button style={{position: "absolute"}} title='Add Washroom'/>
     </View>
     );
