@@ -27,6 +27,7 @@ const BookmarkList = ({ navigation, onSelect, onClose }) => {
         // }
         // ).then(washrooms => {console.log(washrooms)});
         let bids = await AsyncStorage.getItem('bookmarks');
+        console.log(bids);
         bids = JSON.parse(bids);
         for (bid in bids){
           const response = await fetch(`${SERVER_URL}/getWashroom/${bids[bid]}`, {

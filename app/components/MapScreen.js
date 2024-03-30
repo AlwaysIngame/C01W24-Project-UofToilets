@@ -13,6 +13,9 @@ import MapViewDirections from "react-native-maps-directions";
 import { getAddress } from "../src/googlePlaces";
 import UIButton from "./ui/UIButton";
 import BookmarkList from "./BookmarkList";
+import CircleButton from "./ui/CircleButton";
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function MapScreen() {
   let location = {
@@ -26,7 +29,7 @@ export function MapScreen() {
   const mapRef = useRef(null);
   const snapPoints = [36, "33%", "60%"];
 
-  const [sheetScreen, setSheetScreen] = useState("bookmarks");
+  const [sheetScreen, setSheetScreen] = useState("list");
   const [washrooms, setWashrooms] = useState([]);
 
   const [focusedWashroom, setFocusedWashroom] = useState({
@@ -223,7 +226,10 @@ export function MapScreen() {
           width: "100%",
           justifyContent: "center",
         }}
-      >
+      ><View style={{position: 'absolute', margin: 12}}>
+      <View style={{height: 96}}></View>
+      <CircleButton icon={<Ionicons name="bookmark"/>} onPress={() => setSheetScreen("bookmarks")} />
+    </View>
         <View style={{ order: 1, paddingHorizontal: 10 }}>
           <GooglePlacesAutocomplete
             placeholder="Washrooms on your way..."
