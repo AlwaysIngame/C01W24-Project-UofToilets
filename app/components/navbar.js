@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import MasterSettingsScreen from './SettingsScreen/SettingsMaster';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { BORDER_COLOR, COLOR_PRIMARY } from './styles';
+import NewsFeed from './NewsFeed';
 
 export default function TabNavigation(props) {
 
@@ -54,6 +55,9 @@ export default function TabNavigation(props) {
             } else if (route.name === 'Info') {
               size = 23;
               iconName = focused ? 'information-circle' : 'information-circle-outline';
+            } else if (route.name === 'News') {
+              size = 22;
+              iconName = focused ? 'newspaper' : 'newspaper-outline';
             }
 
             // You can return any component that you like here!
@@ -65,9 +69,9 @@ export default function TabNavigation(props) {
         })}>
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
       <Tab.Screen name="Card" component={CardMenu}/>
+      <Tab.Screen name="News" component={NewsFeed}/>
       <Tab.Screen name="Info" component={InformationScreen}/>
       <Tab.Screen name="Settings" children={(props) => <MasterSettingsScreen {...props} userType="user"/>}/>
-      <Tab.Screen name="Washrooms" component={AddWashroomForm}/>
     </Tab.Navigator>
     </GestureHandlerRootView>
   );

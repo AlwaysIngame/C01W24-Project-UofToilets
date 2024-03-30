@@ -30,4 +30,19 @@ export enum COLLECTIONS {
     Users = "users",
     Washrooms = "washrooms",
     Admins = "admins",
+    News = "news",
+}
+
+export interface NewsPost {
+    id: string,
+    title: string,
+    content: string,
+    date: Date,
+}
+
+export function isValidNewsPost(newsPost: any): boolean {
+    return newsPost.id != undefined
+    && newsPost.title != undefined
+    && newsPost.content != undefined
+    && newsPost.date != undefined;
 }
