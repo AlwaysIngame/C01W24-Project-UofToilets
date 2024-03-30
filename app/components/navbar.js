@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import MasterSettingsScreen from './SettingsScreen/SettingsMaster';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { BORDER_COLOR, COLOR_PRIMARY } from './styles';
+import NewsFeed from './NewsFeed';
 
 export default function TabNavigation(props) {
 
@@ -67,7 +68,7 @@ export default function TabNavigation(props) {
       <Tab.Screen name="Card" component={CardMenu}/>
       <Tab.Screen name="Info" component={InformationScreen}/>
       <Tab.Screen name="Settings" children={(props) => <MasterSettingsScreen {...props} userType="user"/>}/>
-      <Tab.Screen name="Washrooms" component={AddWashroomForm}/>
+      <Tab.Screen name="News" component={NewsFeed}/>
     </Tab.Navigator>
     </GestureHandlerRootView>
   );

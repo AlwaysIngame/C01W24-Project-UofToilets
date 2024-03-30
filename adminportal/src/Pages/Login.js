@@ -33,7 +33,7 @@ function LoginPage(){
         },
         body: JSON.stringify({
           username: "admin",
-          password: "chickennuggets",
+          password: formJson.password,
         })
       })
     
