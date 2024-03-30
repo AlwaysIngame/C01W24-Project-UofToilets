@@ -7,6 +7,8 @@ import SignupScreen from './components/SignupScreen';
 import WelcomeScreen from './components/WelcomeScreen';
 import BusinessOwnerTabs from './components/businessOwner/BusinessOwnerNav';
 import SettingsScreen from './components/SettingsScreen/SettingsScreen';
+import AddWashroom from './components/businessOwner/AddWashroom';
+import WashroomScreen from './components/washroomScreen';
 
 export default function App() {
 
@@ -20,8 +22,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Signup" component={SignupScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="Settings" component={SettingsScreen}/>
-        
+        <Stack.Screen name="AddWashroom" component={WashroomScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
