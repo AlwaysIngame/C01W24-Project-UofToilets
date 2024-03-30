@@ -12,6 +12,10 @@ import Constants from "expo-constants";
 import MapViewDirections from "react-native-maps-directions";
 import { getAddress } from "../src/googlePlaces";
 import UIButton from "./ui/UIButton";
+import BookmarkList from "./BookmarkList";
+import CircleButton from "./ui/CircleButton";
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function MapScreen() {
   let location = {
@@ -74,9 +78,21 @@ export function MapScreen() {
   const handleWashroomPress = (id) => {
     console.log(id);
     console.log(washrooms);
-    console.log(washrooms.find((washroom) => washroom.id === id));
+    console.log();
     setFocusedWashroom(washrooms.find((washroom) => washroom.id === id))
     setSheetScreen('store')
+  }
+  const handleWashroomPressFetch = (id) => {
+    let washroom = fetch(`${SERVER_URL}/getWashroom/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => response.json().then((data) => {
+      console.log(data.response);
+      setFocusedWashroom(data.response);
+      setSheetScreen("store");
+    }));
   }
 
   const onRouteSearch = useCallback(async (data, details = null) => {
@@ -210,7 +226,10 @@ export function MapScreen() {
           width: "100%",
           justifyContent: "center",
         }}
-      >
+      ><View style={{position: 'absolute', margin: 12}}>
+      <View style={{height: 96}}></View>
+      <CircleButton icon={<Ionicons name="bookmark"/>} onPress={() => setSheetScreen("bookmarks")} />
+    </View>
         <View style={{ order: 1, paddingHorizontal: 10 }}>
           <GooglePlacesAutocomplete
             placeholder="Washrooms on your way..."
@@ -249,13 +268,13 @@ export function MapScreen() {
               {...focusedWashroom}
               onClose={() => setSheetScreen("list")}
             ></WashroomInfoView>
-          ) : (
+          ) : (sheetScreen == "bookmarks" ? (<BookmarkList onSelect={(id) => handleWashroomPressFetch(id)} onClose={() => setSheetScreen("list")}/>) : (
             <ScrollableList
               washrooms={washrooms}
               onSearchPress={handleSearchPress}
               onSelect={handleWashroomPress}
             />
-          )}
+          ))}
         </BottomSheetScrollView>
       </BottomSheet>
     </View>

@@ -11,8 +11,9 @@ import CircleButton from '../ui/CircleButton';
 import { Ionicons } from '@expo/vector-icons';
 import { getAddress, getCoordinates, getHours, getPhone, getStatus, getWebsite } from '../../src/googlePlaces';
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function WashroomInfoView({ name, bookmarked, navigation, onClose, places_id }) {
+export default function WashroomInfoView({ name, navigation, onClose, places_id, id }) {
 
   const [location, setLocation] = useState({coords: {latitude: 0, longitude: 0}});
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -26,7 +27,7 @@ export default function WashroomInfoView({ name, bookmarked, navigation, onClose
   const [phoneNumber, setPhoneNumber] = useState('');
 
 
-  const [bookmarkedState, setBookmarkedState] = useState(bookmarked);
+  const [bookmarkedState, setBookmarkedState] = useState(false);
   
   const getLocation = async () => {
     let location = await Location.getCurrentPositionAsync({});
@@ -40,6 +41,23 @@ export default function WashroomInfoView({ name, bookmarked, navigation, onClose
   const toggleBookmark = () => {
     // Toggle bookmark
     setBookmarkedState(!bookmarkedState);
+    if (bookmarkedState) {
+      AsyncStorage.getItem('bookmarks').then((bookmarks) => {
+        bookmarks = JSON.parse(bookmarks);
+        bookmarks = bookmarks.filter((bid) => bid !== id);
+        AsyncStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        console.log("Removing bookmark")
+      });
+    } else {
+      AsyncStorage.getItem('bookmarks').then((bookmarks) => {
+        bookmarks = JSON.parse(bookmarks);
+        if (!bookmarks) {
+          bookmarks = [];
+        }
+        bookmarks.push(id);
+        AsyncStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+      });
+    }
   }
   
   const onDirections = () => {
@@ -86,6 +104,14 @@ export default function WashroomInfoView({ name, bookmarked, navigation, onClose
     });
     getPhone(places_id).then((phone) => {
       setPhoneNumber(phone);
+    });
+
+    AsyncStorage.getItem('bookmarks').then((bookmarks) => {
+      bookmarks = JSON.parse(bookmarks);
+      if (bookmarks) {
+        setBookmarkedState(bookmarks.includes(id));
+        console.log(bookmarks);
+      }
     });
 
 
