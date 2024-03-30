@@ -370,6 +370,7 @@ app.post("/approveWashroom/:id", express.json(), async (req, res) => {
                 { id: washroomId },
                 { $set: { approved: true } },
             );
+            if (!washroom) return res.status(404).json({ error: "Washroom not found" });
             res.status(200).json({ response: "Approved washroom." });
         });
     } catch (error: any) {
