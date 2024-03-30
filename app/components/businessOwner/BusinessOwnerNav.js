@@ -6,6 +6,7 @@ import MyWashrooms from './MyWashrooms';
 import MasterSettingsScreen from '../SettingsScreen/SettingsMaster';
 import { COLOR_PRIMARY } from '../styles';
 import { Ionicons } from '@expo/vector-icons';
+import NewsFeed from '../NewsFeed';
 
 export default function BusinessOwnerTabs(props) {
 
@@ -31,6 +32,9 @@ export default function BusinessOwnerTabs(props) {
             } else if (route.name === 'My Washrooms') {
               size = 26;
               iconName = focused ? 'list' : 'list';
+            } else if (route.name === 'News') {
+              size = 22;
+              iconName = focused ? 'newspaper' : 'newspaper-outline';
             }
 
             // You can return any component that you like here!
@@ -42,6 +46,7 @@ export default function BusinessOwnerTabs(props) {
         })}>
       <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
       <Tab.Screen name="My Washrooms" children={() => <MyWashrooms navigation={props.navigation}/>}/>
+      <Tab.Screen name="News" children={() => <NewsFeed navigation={props.navigation}/>}/>
       <Tab.Screen name="Settings" children={() => <MasterSettingsScreen userType="businessOwner" navigation={props.navigation}/>}/>
     </Tab.Navigator>
     </GestureHandlerRootView>

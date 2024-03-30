@@ -65,11 +65,11 @@ function NewsPage(){
     <div>
       <Sidebar/>
       <div className='postNews' style={{width: 500, display: 'flex', flexDirection:'column', marginTop: 64}}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{}}>
             <label>Title:</label>
             <input type='text' value={newTitle} onChange={(e) => setNewTitle(e.target.value)}></input>
             <label>Content:</label>
-            <input type='text' value={newContent} onChange={(e) => setNewContent(e.target.value)}></input>
+            <textarea type='text' value={newContent} onChange={(e) => setNewContent(e.target.value)}></textarea>
         </form>
         <button type='submit' onClick={handleSubmit}>Post</button>
        </div>
