@@ -1,1 +1,11 @@
 /* Requests.css */
+.washroom-list {
+  /* Add any styles for the overall list container here */
+}
+
+.washroom-item {
+  border: 1px solid #ccc; /* Add a border around each item */
+  border-radius: 5px; /* Add rounded corners */
+  padding: 10px; /* Add some padding inside each item */
+  margin-bottom: 10px; /* Add some space between each item */
+}
