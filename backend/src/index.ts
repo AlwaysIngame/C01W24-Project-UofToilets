@@ -284,6 +284,21 @@ app.delete("/deleteWashroom/:id", express.json(), async (req, res) => {
     }
 })
 
+app.get("/getWashroom/:id", express.json(), async (req, res) => {
+    try {
+        let id = req.params.id;
+        const washroomCollection = db.collection(COLLECTIONS.Washrooms);
+        const washroom = await washroomCollection.findOne({id: id});
+        if (washroom) {
+            res.status(200).json({ response: washroom });
+        } else {
+            res.status(404).json({ error: "Washroom not found." });
+        }
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+})
+
 app.get("/getUserWashrooms", express.json(), async (req, res) => {
     const default_radius = 3000;
     try {
