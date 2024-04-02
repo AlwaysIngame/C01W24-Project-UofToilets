@@ -67,7 +67,8 @@ export default function TabNavigation(props) {
           tabBarActiveTintColor: COLOR_PRIMARY,
           tabBarInactiveTintColor: 'gray',
         })}>
-      <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/>
+      {/* <Tab.Screen name="Home" component={MapScreen}  options={{headerShown: false}}/> */}
+      <Tab.Screen name="Home" children={() => <MapScreen nav={props.navigation}/>} options={{headerShown: false}}/>
       <Tab.Screen name="Card" component={CardMenu}/>
       <Tab.Screen name="News" component={NewsFeed}/>
       <Tab.Screen name="Info" component={InformationScreen}/>

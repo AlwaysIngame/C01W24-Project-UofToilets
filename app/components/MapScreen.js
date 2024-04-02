@@ -17,14 +17,14 @@ import CircleButton from "./ui/CircleButton";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export function MapScreen() {
+export function MapScreen({ nav }) {
   let location = {
     latitude: 43.65107,
     longitude: -79.347015,
   };
 
   const [region, setRegion] = useState(null);
-  const [isRegionChanged, setRegionChanged] = useState(false);
+  const [isRegionChanged, setRegionChanged] = useState(true);
   const sheetRef = useRef(null);
   const mapRef = useRef(null);
   const snapPoints = [36, "33%", "60%"];
@@ -56,7 +56,7 @@ export function MapScreen() {
         });
         return;
       }
-
+      
       let loc = await Location.getCurrentPositionAsync({});
       setRegion({
         latitude: loc.coords.latitude,
@@ -228,7 +228,9 @@ export function MapScreen() {
         }}
       ><View style={{position: 'absolute', margin: 12}}>
       <View style={{height: 96}}></View>
-      <CircleButton icon={<Ionicons name="bookmark"/>} onPress={() => setSheetScreen("bookmarks")} />
+      <CircleButton icon={<Ionicons name="bookmark" size={18}/>} onPress={() => setSheetScreen("bookmarks")} />
+      <View style={{height: 12}}></View>
+      <CircleButton icon={<Ionicons name="add" size={25}/>} onPress={() => nav.navigate("AddWashroom")} />
     </View>
         <View style={{ order: 1, paddingHorizontal: 10 }}>
           <GooglePlacesAutocomplete

@@ -33,12 +33,14 @@ const BookmarkList = ({ navigation, onSelect, onClose }) => {
           const response = await fetch(`${SERVER_URL}/getWashroom/${bids[bid]}`, {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
+              "Content-Type": "application/json",
             }});
-          const washroom = await response.json();
-          const address = await getAddress(washroom.response.places_id);
-          washroom.response.address = address;
-          setWashrooms(washrooms => [...washrooms, washroom.response]);
+            const washroom = await response.json();
+          if (washroom.response) {
+            const address = await getAddress(washroom.response.places_id);
+            washroom.response.address = address;
+            setWashrooms(washrooms => [...washrooms, washroom.response]);
+          }
         }
       } catch (error) {
         console.error('Error fetching washrooms:', error);
