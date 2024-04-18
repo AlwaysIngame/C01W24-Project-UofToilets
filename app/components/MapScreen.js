@@ -145,7 +145,7 @@ export function MapScreen({ nav }) {
         },
       );
       const getWashroomBody = await getWashroomRes.json();
-      let ws = getWashroomBody.response;
+      let ws = getWashroomBody.response.filter((washroom) => washroom.approved !== false);
       for (let i = 0; i < ws.length; i++) {
         ws[i].distance =
           haversineDistance(ws[i], location) / 1000;

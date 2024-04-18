@@ -26,7 +26,6 @@ function LoginPage(){
     //-- Call and validate login -- Uncomment when confirmed working
     try {
       const loginRes = await fetch(`${SERVER_URL}/loginUser`, {
-        mode: "cors",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
