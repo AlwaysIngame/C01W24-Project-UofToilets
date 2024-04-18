@@ -78,8 +78,12 @@ export default function WashroomInfoView({ name, navigation, onClose, places_id,
 
   const updateParams = async () => {
     getHours(places_id).then((hours) => {
-      setHoursState(hours[0]);
-      setOpenNow(hours[1]);
+      if (hours) {
+        setHoursState(hours[0]);
+        if (hours[1] !== undefined){
+          setOpenNow(hours[1]);
+        }
+      }
     });
     getAddress(places_id).then((address) => {
       setAddress(address);
